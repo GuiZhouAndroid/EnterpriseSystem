@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.dtchain.dao.DataShareDao">
+	<insert id="uploadDataFile" parameterType="io.dtchain.entity.DataShare">
+		insert into documentData (id,userId,title,ramark,docTitle,createTime,suffix)
+		values
+		(#{id},#{userId},#{title},#{ramark},#{docTitle},#{createTime},#{suffix})
+	</insert>
+	<select id="getDocumentNameById" parameterType="string" resultType="string">
+		select docTitle from documentData where id=#{id}
+	</select>
+	
+	<select id="getReleaseDocument" parameterType="map" resultType="io.dtchain.entity.DataShare">
+		SELECT id,title,ramark,empName,empDept FROM documentData dd INNER JOIN EmpTable et ON dd.userId=et.empId 
+			
+				<if test="userId != 'admin'">
+					AND userId=#{userId}
+				</if>
+			  ORDER BY createTime DESC  limit #{begin},10
+	</select>
+	
+	<select id="getReleaseDocumentCount" parameterType="string" resultType="int">
+		select count(*) from documentData 
+			<where>
+				<if test="userId != 'admin'">
+					userId=#{userId}
+				</if>
+			</where>
+	</select>
+	
+	<select id="getDocumentContent" parameterType="string" resultType="io.dtchain.entity.DataShare">
+		select id,title,createTime,empName,empDept,ramark,docTitle,fabulous,stamp,suffix FROM documentData dd INNER JOIN EmpTable et ON dd.userId=et.empId AND id=#{id}
+	</select>
+	
+	<select id="getAllDocumentCount" resultType="int">
+		select count(*) from documentData
+	</select>
+	
+	<select id="initDocument" parameterType="int" resultType="io.dtchain.entity.DataShare">
+		SELECT id,title,createTime,empName,empDept FROM documentData dd INNER JOIN EmpTable et ON dd.userId=et.empId ORDER BY createTime DESC  limit #{begin},10
+	</select>
+	
+	<select id="getSearshDocumentCount" parameterType="string" resultType="int">
+		select count(*) from documentData where title=#{value} or userId=(
+		select empId from EmpTable where empName=#{value})
+	</select>
+	
+	<select id="getSearchDocument" parameterType="map" resultType="io.dtchain.entity.DataShare">
+			SELECT id,title,createTime,empName,empDept FROM documentData dd INNER JOIN EmpTable et ON dd.userId=et.empId and
+			(dd.title=#{value} or dd.userId=(
+		select empId from EmpTable where empName=#{value})) ORDER BY createTime DESC  limit #{begin},10	
+	</select>
+	
+	<delete id="delDoc" parameterType="map">
+		delete from documentData where id=#{id}
+	</delete>
+	<select id="getSuffixById" parameterType="string" resultType="string">
+		select suffix from documentData where id=#{id}
+	</select>
+</mapper>

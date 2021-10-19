@@ -1,0 +1,139 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport"
+	content="width = device-width, initial-scale = 1.0, user-scalable = 0" />
+<meta charset="UTF-8" />
+<title>报销流程</title>
+<link rel="stylesheet" href="layui/css/layui.css" />
+<link rel="stylesheet" href="styles/reim.css" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="styles/jquery.mCustomScrollbar.css" />
+<link rel="stylesheet" href="styles/jquery.mCustomScrollbar.min.css" />
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/reim.js"></script>
+<script type="text/javascript" src="date/WdatePicker.js"></script>
+<script src="scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="scripts/jquery.mCustomScrollbar.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<div class="body_layer">
+		<table class="layui-table" border="1" cellspacing="0">
+			<tr>
+				<td style="width: 200px;" class="fontSize backColor">报销日期</td>
+				<td style="width: 200px;" class="time"></td>
+				<td style="width: 200px;" class="fontSize backColor">所属部门</td>
+				<td style="width: 200px; color: hsl(209, 77%, 53%);">技术研发部</td>
+				<td style="width: 200px;" class="fontSize backColor">报销人</td>
+				<td style="width: 200px; color: hsl(209, 77%, 53%);">吕冠森</td>
+				<td style="width: 200px;" class="fontSize backColor">工号</td>
+				<td style="width: 200px; color: hsl(209, 77%, 53%);">201808</td>
+			</tr>
+			<tr>
+				<td style="width: 200px;" class="fontSize backColor">出差时间</td>
+				<td colspan="5">
+					<div class="dateSelect">
+
+						<input id="stime" style="color: hsl(209, 77%, 53%)" /><img alt=""
+							src="date/skin/datePicker.gif" class="simg"> 至<input
+							id="etime" style="color: hsl(209, 77%, 53%)" /><img alt=""
+							src="date/skin/datePicker.gif" class="eimg">共 <input
+							id="gtime" disabled="disabled" style="color: hsl(209, 77%, 53%)">天
+					</div>
+				</td>
+				<td style="width: 200px;" class="fontSize backColor">经办人</td>
+				<td style="width: 200px; color: hsl(209, 77%, 53%);">吕冠森</td>
+			</tr>
+			<tr>
+				<td style="width: 200px;" class="fontSize backColor">出差事由</td>
+				<td colspan="7"><input id="travel"><span
+					style="color: red">备注：简要说明出差事由。</span></td>
+			</tr>
+			<tr>
+				<td style="width: 200px;" class="fontSize backColor">行政审核</td>
+				<td colspan="3"><label><input name="admin" type="radio"
+						value="" />是 </label>&nbsp;&nbsp; <label><input name="admin"
+						type="radio" value="" />否 </label> &nbsp;&nbsp; <span style="color: red">
+						需行政审核的内容：1、私车公用类报销；2、其他公司规定差旅报销中需行政审核的内容。</span></td>
+				<td style="width: 200px;" class="fontSize backColor">同步审单</td>
+				<td colspan="3"><label><input name="sync" type="radio"
+						value="" />是 </label>&nbsp;&nbsp; <label><input name="sync"
+						type="radio" value="" />否 </label> &nbsp;&nbsp; <span style="color: red">对纸质单据与OA表单进行同步审批，以减少反复沟通次数加快审批效率。此选项由成本中心负责人把关，一旦勾选需各级审批人看单审批，同步批复，选错驳回需重走流程！</span>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 200px;" class="fontSize backColor">单据类型</td>
+				<td colspan="3"><label><input name="djType"
+						type="radio" value="" />销售项目类 </label>&nbsp;&nbsp; <label><input
+						name="djType" type="radio" value="" />研发项目类</label> &nbsp;&nbsp; <label><input
+						name="djType" type="radio" value="" />非项目类</label> &nbsp;&nbsp; <span
+					style="color: red">跟实际销售项目有关联的选择“销售项目类”，经研发立项的研发项目有关联的选择“研发项目类”，跟项目无关则选“非项目类”</span>
+				</td>
+				<td style="width: 200px;" class="fontSize backColor">成本中心</td>
+				<td colspan="3"><input id="cbzx"> <span
+					style="color: red">(费用归属部门)</span></td>
+			</tr>
+			<tr>
+				<td colspan="8" class="backColor"
+					style="font-size: 14px; font-weight: bold; color: #000000;">出差行程</td>
+			</tr>
+			<tr>
+				<td colspan="8">
+					<table class="layui-table ccxc" border="1" cellspacing="0">
+						<tr class="backColor">
+							<td></td>
+							<td>序号</td>
+							<td>起止日期</td>
+							<td>起止地点</td>
+							<td>人数</td>
+							<td>天数</td>
+							<td>交通工具</td>
+							<td>交通费</td>
+							<td>住宿标准</td>
+							<td>住宿费</td>
+							<td>其他费用</td>
+							<td>小计</td>
+							<td></td>
+						</tr>
+						<tr class="appendTr">
+							<td colspan="13" class="addBack">
+								<img src="images/add.png" class="add" onclick="addCCXC()">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<table class="layui-table" border="1" cellspacing="0">
+			<tr>
+				<td colspan="5"><span>流程处理</span></td>
+			</tr>
+			<tr class="lccl">
+				<td class="backColor" style="width:200px">时间</td>
+				<td class="backColor" style="width:250px">节点名称</td>
+				<td class="backColor" style="width:100px">操作者</td>
+				<td class="backColor" style="width:100px">操作</td>
+				<td class="backColor">处理意见</td>
+			</tr>
+			<tr class="lccl">
+				<td>2019-04-22 20:35</td>
+				<td>起草节点</td>
+				<td>吕冠森</td>
+				<td>提交文档</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="backColor">当前处理人</td>
+				<td colspan="4">财务审核: 财务管理部经理(朱桂梅)</td>
+			</tr>
+			<tr>
+				<td class="backColor">已经处理人</td>
+				<td colspan="4">吕冠森;张仁辉;王师;郑翔;赵盼盼;林玲洁;杨彩曼</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+
+.contentBody{
+	position:absolute;
+	top:9%;
+	left:14%;
+	width:86%;
+	height:85%;
+	/*border: 1px solid red;*/
+}
+.preview{
+	cursor:pointer;
+}
+.dowload{
+	cursor:pointer;
+}
+.layui-table td{
+	border-style:dashed;
+	border-left:0px;
+	border-right:0px;
+	text-align:center;
+}
+.tab_content{
+	position:absolute;
+	top:10%;
+	width:97%;
+	height:90%;
+	/*border: 1px solid red;*/
+}
+#demo1{
+	position: absolute;
+	top:91%;
+	left:60%;
+}
+.showCount{
+	position: absolute;
+	top:93%;
+	left:3%;
+	color:#fff;
+}
+.search{
+	position:absolute;
+	top:2%;
+	left:8%;
+}
+a{
+	color:#000;
+}
+a:hover{
+	color:red;
+}
+.layui-table tbody tr:hover {background-color: #0080c0}
+.layui-table{
+	/*background-color:rgba(0,0,0,0.5);*/
+	color:#000000;
+}

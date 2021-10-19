@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.dtchain.dao.MangageDao">
+	<!-- 添加员工Mapping -->
+	<insert id="addEmp" parameterType="io.dtchain.entity.EmpInfo">
+		insert ignore into EmpTable
+		(empId,empName,empDept,empSex,empPhone,empNum,empMail,empPass,empNation,empBirth,empMarriage,empPolitical,empNumCard,empAge,empEducation,empMajor,empSchool,empPosition,empAddress,empSalary) values
+		(#{empId},#{empName},#{empDept},#{empSex},#{empPhone},#{empNum},#{empMail},#{empPass},#{empNation},#{empBirth},#{empMarriage},#{empPolitical},#{empNumCard},#{empAge},#{empEducation},#{empMajor},#{empSchool},#{empPosition},#{empAddress},#{empSalary})
+	</insert>
+
+	<!-- 获取搜索员工信息 -->
+	<select id="queryDeptEmpInfo" parameterType="Map"
+		resultType="io.dtchain.entity.EmpInfo">
+		select empId,empName,empDept,empSex,empPhone,empNum,empMail,empNation,empBirth,empMarriage,empPolitical,empNumCard,empAge,empEducation,empMajor,empSchool,empPosition,empAddress,empSalary
+		from EmpTable
+		where empDept=#{info} or empName=#{info} limit #{begin},10
+	</select>
+	<!-- 删除员工信息 -->
+	<delete id="delEmpInfo" parameterType="Map">
+		delete from EmpTable where
+		empId=#{empId}
+	</delete>
+	<!-- 更新员工信息 -->
+	<update id="upEmpInfo" parameterType="io.dtchain.entity.EmpInfo">
+		update EmpTable
+		set
+		empName=#{empName},empDept=#{empDept},empPhone=#{empPhone},empMail=#{empMail},empSex=#{empSex},empNum=#{empNum},empNation=#{empNation},empBirth=#{empBirth},empMarriage=#{empMarriage},
+		empMarriage=#{empMarriage},empPolitical=#{empPolitical},empNumCard=#{empNumCard},empAge=#{empAge},empEducation=#{empEducation},empMajor=#{empMajor},empSchool=#{empSchool},empPosition=#{empPosition},empAddress=#{empAddress},empSalary=#{empSalary}
+		where empId=#{empId}
+	</update>
+	<!-- 根据员工名字查询部门 -->
+	<select id="queryDept" parameterType="string"
+		resultType="string">
+		select empDept from EmpTable where empName=#{empName} and
+		empId!='admin'
+	</select>
+	<!-- 查询员工工号与名字 -->
+	<select id="queryNum" resultType="java.util.HashMap">
+		select empName,empNum from
+		EmpTable WHERE empId!='admin'
+	</select>
+	<!-- 查询员工账号密码 -->
+	<select id="queryInfo" parameterType="string"
+		resultType="io.dtchain.entity.EmpInfo">
+		select empName,empPass,empId from EmpTable where
+		empName=#{adminName}
+	</select>
+	<!-- 查询审批人信息 -->
+	<select id="queryApprovalInfo" parameterType="map" resultType="io.dtchain.entity.EmpInfo">
+		<!-- select empName,empDept,empPosition from EmpTable limit #{page},#{limit} -->
+		select distinct  empName,empDept,empPosition from EmpTable as et join user_resource as ur on et.empId=ur.userId
+	</select>
+	<select id="queryEmpCount" resultType="int">
+		SELECT COUNT(*) FROM EmpTable
+	</select>
+	
+	<select id="queryCount" parameterType="string" resultType="int">
+		select count(*) from EmpTable where empDept=#{searchValue} or empName=#{searchValue}
+	</select>
+	
+	<update id="updatePass" parameterType="map">
+		update EmpTable set empPass=#{empPass} where empId=#{empId}
+	</update>
+	
+	<select id="getInitInfo" resultType="io.dtchain.entity.EmpInfo">
+		select empId,empName,empDept,empSex,empPhone,empNum,empMail,empNation,empBirth,empMarriage,empPolitical,empNumCard,empAge,empEducation,empMajor,empSchool,empPosition,empAddress,empSalary
+		from EmpTable where empName!="admin" limit #{begin},10
+	</select>
+	
+	<select id="getInitInfoCount" resultType="int">
+		SELECT COUNT(*) FROM EmpTable where empName!="admin"
+	</select>
+	
+	<update id="passwordReset" parameterType="map">
+		update EmpTable set empPass=#{empPass} where empId=#{empId}
+	</update>
+	
+	<select id="getNum" parameterType="string" resultType="io.dtchain.entity.EmpInfo">
+		select empName,empNum from EmpTable where empId=#{empId}
+	</select>
+	
+	<select id="getEmpInfoById" parameterType="string" resultType="io.dtchain.entity.EmpInfo">
+		select empName,empDept,empSex,empPhone,empNum,empMail,empNation,empBirth,empMarriage,empPolitical,empNumCard,empAge,empEducation,empMajor,empSchool,empPosition,empAddress,empSalary
+			from EmpTable where empId=#{empId}
+	</select>
+</mapper>

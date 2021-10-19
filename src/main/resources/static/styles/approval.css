@@ -1,0 +1,146 @@
+.form_body {
+	position: absolute;
+	left: 13%;
+	top: 8%;
+	width: 100%;
+	height: 100%;
+}
+
+.btn_bg {
+	poisition: absolute;
+	top: 250%; width : 100%;
+	height: 65px;
+	background-color: #e4e4e4;
+	width: 100%;
+}
+
+.sub_btn {
+	position: fixed;
+	left: 15%;
+	top: 10%;
+	border-radius: 5px;
+}
+.bg1 {
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	top: 18%;
+	
+}
+.startTime{
+	position: absolute;
+	top:22%;
+}
+.bg2{
+	position: absolute;
+	width: 100%;
+	height: 3px;
+	top: 29%;
+}
+.endTime{
+	position:absolute;
+	top:34%;
+}
+.bg3{
+	position: absolute;
+	width: 100%;
+	height: 3px;
+	top: 41%;
+}
+.times{
+	position:absolute;
+	top:46%;
+}
+.bg4{
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	top: 53%;
+}
+.leaveExcuse{
+	position:absolute;
+	width:40%;
+	top:58%;
+}
+.add{
+	position:absolute;
+	left:1%;
+	top:75%;
+}
+.opacity_bg{
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	background:#000;
+	opacity:0.6;
+	margin:auto;
+	z-index:9999999;
+	display:none;
+}
+.show{
+	position:absolute;
+	left:30%;
+	top:15%;
+	width:700px;
+	height:500px;
+	z-index:99999999;
+	background-color:#acd6ff;
+	border-radius: 5px;
+}
+.showBody{
+	position:absolute;
+	left:1%;
+	top:6%;
+	width:685px;
+	height:465px;
+	background-color:#fff;
+}
+#leftTitle{
+	position:absolute;
+	top:1%;
+	left:1%;
+	color:#fff;
+	font-weight:bold;
+	font-size:12px;
+}
+
+#btnClose{
+	position:absolute;
+	top:1%;
+	left:96%;
+	height:20px;
+	padding:0px;
+}
+
+.layui-btn{
+		line-height:0px;
+}
+.tab{
+	position:absolute;
+	width:610px;
+	height:450px;
+	left:6%;
+}
+.btnGroup{
+	position:absolute;
+	left:40%;
+	top:92%;
+}
+.ulList{
+	position:absolute;
+	top:90%;
+	left:15%;
+	width:880px;
+	height:40px;
+	overflow:hidden;
+}
+.ulList li{
+	display:inline;
+	font-size:13px;
+	background-color:#d7d7d7;
+}
+.ulList li img{
+	cursor:pointer;
+}

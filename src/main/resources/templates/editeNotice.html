@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0"/>
+<meta charset="UTF-8" />
+<title>编辑通知或公告</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="layui/css/layui.css" />
+<link rel="stylesheet" href="styles/editeNotice.css"/>
+<script src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/editeNotice.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<div class="edite">
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<input type="text" name="title" lay-verify="title"
+					autocomplete="off" placeholder="请输入标题" class="layui-input title"/>
+			</div>
+		</div>
+		<textarea id="demo" name="demo"></textarea>
+		<div class="btn">
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" id="save">保存</button>
+					<a href="index" class="layui-btn">返回</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0"/>
+<meta charset="UTF-8"/>
+<title>我的审批</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="layui/css/layui.css"/>
+<link rel="stylesheet" href="styles/myApproval.css"/>
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/path.js"></script>
+<script src="layui/layui.js"></script>
+<script src="scripts/myApproval.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<div class="tabTitle">
+		<div class="layui-tab">
+			<ul class="layui-tab-title">
+				<li class="layui-this">待审批</li>
+				<li id="approved">已审批</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<div class="layui-form">
+				
+						<div class="list">
+							<div class="listTitle">
+								<span>审批列表</span>
+							</div>
+						</div>
+						<div class="tableList">
+							<table class="layui-table table_info" border="1" cellspacing="0" id="pendingApproval">
+								<tr>
+									<th style="width: 100px;">申请人</th>
+									<th style="width: 100px;">审批类型</th>
+									<th style="width: 100px;">状态</th>
+									<th style="width: 150px;">请假时间</th>
+									<th style="width: 100px;">请假天数</th>
+									<th style="width: 289px;">请假事由</th>
+									<th style="width: 250px;">操作</th>
+								</tr>
+							</table>
+							<div class="pageing" id="paging"></div>
+							<div class="showCount">
+								<span id="countRed"></span>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div class="layui-tab-item layui-show">
+						<div class="layui-form">
+						 	<div shiro:hasPermission="/approvalauthority">
+							<div class="layui-form-item">
+								<label class="layui-form-label">关键字:</label>
+								<div class="layui-input-inline">
+									<input type="text" name="username" lay-verify="required"
+										placeholder="申请人" autocomplete="off" class="layui-input" id="applicant"/>
+								</div>
+							</div>
+							<div class="cale1">
+								<div class="layui-inline">
+									<label class="layui-form-label">创建时间:</label>
+									<div class="layui-input-inline">
+										<input type="text" class="layui-input" id="start1"
+											placeholder="yyyy-MM-dd"/>
+									</div>
+								</div>
+							</div>
+							<div class="cale2">
+								<div class="layui-inline">
+									<label class="layui-form-label">至</label>
+									<div class="layui-input-inline">
+										<input type="text" class="layui-input" id="end1"
+											placeholder="yyyy-MM-dd"/>
+									</div>
+								</div>
+							</div>
+							<div class="status">
+								<div class="layui-form-item">
+									<label class="layui-form-label">状态:</label>
+									<div class="layui-input-inline">
+										<select name="quiz1" lay-verify="required" id="approverStatue">
+											<option value="">==请选择==</option>
+											<option value="全部">全部</option>
+											<option value="通过">通过</option>
+											<option value="拒绝">拒绝</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="searchBtn">
+								<button class="layui-btn layui-btn-primary searchBtnHeight" id="approvedSearch">搜索</button>
+								<button class="layui-btn layui-btn-sm resetBtn"><i class="layui-icon">&#xe9aa;</i></button>
+							</div>
+							</div>
+							<div class="list">
+								<div class="listTitle">
+									<span>审批列表</span>
+								</div>
+							</div>
+							<div class="tableList">
+								<table class="layui-table table_info" border="1" cellspacing="0" id="approval">
+									<tr>
+										<th style="width: 100px">申请人</th>
+										<th style="width: 100px">审批类型</th>
+										<th style="width: 100px">状态</th>
+										<th style="width: 150px">请假时间</th>
+										<th style="width: 100px">请假天数</th>
+										<th style="width: 289px">请假事由</th>
+										<th style="width: 250px">操作</th>
+									</tr>
+								</table>
+								<div class="pageing" id="paging1"></div>
+								<div class="showCount">
+									<span id="countRed1"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

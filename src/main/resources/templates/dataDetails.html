@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport"
+	content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0" />
+<meta charset="UTF-8" />
+<title>资料详情</title>
+
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="layui/css/layui.css" />
+<link rel="stylesheet" href="styles/dataDetails.css" />
+<script src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script src="layui/layui.js"></script>
+<script src="scripts/dataDetails.js"></script>
+
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+
+	<div class="contentBody">
+
+		<!-- <span class="preview">文件预览</span>
+		<span class="dowload">下载</span> -->
+		<div class="search">
+			<input class="easyui-searchbox"
+				data-options="prompt:'输入文档标题或作者',searcher:doSearch"
+				style="height: 30px; width: 200px" id="search"></input>
+		<button class="layui-btn layui-btn-sm resetBtn"><i class="layui-icon">&#xe9aa;</i></button>
+		</div>
+		<div class="tab_content">
+			<table class="layui-table notice_list">
+				<tr class="headStyle">
+					<td style="width: 100px"><b>序号</b></td>
+					<td style="width: 600px"><b>文档标题</b></td>
+					<td style="width: 100px"><b>作者</b></td>
+					<td style="width: 100px"><b>所属部门</b></td>
+					<td style="width: 300px"><b>发布时间</b></td>
+				</tr>
+			</table>
+			<div class="paging" id="demo1"></div>
+			<div class="showCount">
+				<span id="countRed"></span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>公告详情</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="layui/css/layui.css" />
+<link rel="stylesheet" href="styles/noticeOperation.css">
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/noticeOperation.js"></script>
+<script src="scripts/noticeCom.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<div class="tabBody">
+		<table class="layui-table notice_list">
+				<tr class="headStyle">
+					<td>序号</td>
+					<td>公告标题</td>
+					<td>创建时间</td>
+					<td></td>
+					<td></td>
+				</tr>
+		</table>
+		<div class="paging" id="demo1"></div>
+	</div>
+</body>
+</html>

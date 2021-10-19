@@ -1,0 +1,100 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<meta name="viewport"
+	content="width=device-width, initial-scale=1" />
+<style>
+a {
+	text-decoration: none;
+}
+
+#break {
+	cursor: pointer;
+}
+.layui-footer{
+	text-align:center;
+	font-size:10px;
+}
+</style>
+<script src="scripts/path.js"></script>
+<script>
+	
+</script>
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header">
+		<div class="layui-logo layui-nav-item">
+			<ul class="layui-nav">
+				<li class="layui-nav-item"><a href="index"><img src="images/home.png">&nbsp;企业OA系统</a></li>
+			</ul>
+		</div>
+		<!-- 头部区域（可配合layui已有的水平导航） -->
+		<ul class="layui-nav layui-layout-left">
+			<li class="layui-nav-item"><a href="stassMang"><img src="images/user.png">&nbsp;员工管理</a></li>
+			<li class="layui-nav-item"><a href="record"><img src="images/recod.png">&nbsp;考勤记录</a></li>
+			<li class="layui-nav-item"><a href="attend"><img src="images/att.png">&nbsp;考勤管理</a></li>
+			<li class="layui-nav-item"><a href="dataDetails"><img src="images/infocenter.png">&nbsp;文档中心</a></li>
+			<li class="layui-nav-item"><a href="notice"><img src="images/notice_1.png">&nbsp;公告</a></li>
+
+		</ul>
+		<ul class="layui-nav layui-layout-right">
+			<li class="layui-nav-item"><a href="info" shiro:principal=""
+				class="admin"></a></li>
+
+			<li class="layui-nav-item"><a href="logout" id="break"><img src="images/break.png">&nbsp;退出</a></li>
+		</ul>
+	</div>
+
+	<div class="layui-side layui-bg-black">
+		<div class="layui-side-scroll">
+			<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+			<ul class="layui-nav layui-nav-tree" lay-filter="test">
+				<li class="layui-nav-item"><a href="javascript:;" shiro:hasPermission="/jurisdiction"><img src="images/auth_1.png">&nbsp;授权管理</a>
+					<dl class="layui-nav-child">
+						<dd>
+							 <a href="jurisdiction"><img src="images/auth.png">&nbsp;权限管理</a>
+						</dd>
+					</dl></li>
+				<li class="layui-nav-item"><a href="javascript:;"><img src="images/app.png">&nbsp;审批管理</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href="approval"><img src="images/leave.png">&nbsp;请假申请</a> <a href="myApproval"><img src="images/myApp.png">&nbsp;我的审批</a>
+							 <!-- <a href="reim"><img src="images/reim.png">&nbsp;报销流程</a>  -->
+						</dd>
+					</dl></li>
+				<li class="layui-nav-item" shiro:hasPermission="/noticeMangage"><a href="javascript:;"><img src="images/notice.png">&nbsp;公告管理</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href="editeNotice"><img src="images/edit.png">&nbsp;编辑公告</a>
+							<a href="noticeOperation"><img src="images/opera.png">&nbsp;公告详情</a>
+						</dd>
+					</dl></li>
+				<li class="layui-nav-item"><a href="javascript:;"><img src="images/notice.png">&nbsp;部门管理</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a href="dept"><img src="images/dept.png">&nbsp;部门信息</a>
+							<a shiro:hasPermission="/deptauthority" href="addDept"><img src="images/addDept.png">&nbsp;添加部门</a>
+						</dd>
+					</dl></li>
+					
+					<li class="layui-nav-item"><a href="javascript:;"><img src="images/data.png">&nbsp;数据管理</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a class="" href="dataImport" shiro:hasPermission="/dataImport"><img src="images/excel.png">&nbsp;数据导入</a>
+							<a href="dataUpload"><img src="images/info.png">&nbsp;文档上传</a>
+							<a href="docMangage"><img src="images/docMangage.png">&nbsp;文档管理</a>
+						</dd>
+					</dl></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="layui-footer">
+		<span id="footer">为了获得最佳操作体验，建议您使用最新版本的浏览器，支持1024 X 768以上分辨率</span>
+	</div>
+</div>
+<script>
+	//JavaScript
+	layui.use('element', function() {
+		var element = layui.element;
+	});
+</script>
+</html>

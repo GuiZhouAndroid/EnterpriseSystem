@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>更改员工信息</title>
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+<link rel="stylesheet" href="styles/addEmp.css" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="layui/css/layui.css" media="all" />
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="scripts/updateEmp.js"></script>
+<script type="text/javascript" src="scripts/queryDeptInfo.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<script src="layui/layui.js"></script>
+	<div class="content">
+		<div class="layui-form">
+			<table class="layui-table">
+				<tbody>
+					<tr>
+						<td style="width: 100px">姓名</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input name"></td>
+						<td style="width: 100px">性别</td>
+						<td>
+							<div class="layui-form-item">
+								<div class="layui-input-block">
+									<input type="radio" name="sex" value="男" title="男" class="empSex" checked> <input
+										type="radio" name="sex" value="女" title="女"  class="empSex">
+								</div>
+							</div>
+						</td>
+						<td style="width: 100px">民族</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input nation">
+						</td>
+					</tr>
+					<tr>
+						<td>出生日期</td>
+						<td><div class="layui-inline">
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" id="time"
+										lay-verify="required" placeholder="yyyy-MM-dd" />
+								</div>
+							</div></td>
+						<td>婚姻状况</td>
+						<td><div class="layui-form-item">
+								<div class="layui-input-block">
+									<input type="radio" name="marriage" value="已婚" title="已婚" class="marriage" checked> <input
+										type="radio" name="marriage" value="未婚" title="未婚"  class="marriage">
+										<input
+										type="radio" name="marriage" value="离异" title="离异" class="marriage">
+								</div>
+							</div>
+						</td>
+						<td>政治面貌</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input political ">
+						</td>
+					</tr>
+					<tr>
+						<td>身份证号</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input numId">
+						</td>
+						<td>部门</td>
+						<td><div class="layui-input-inline ">
+								<select name="quiz2" class="chooseDept" id="seledept">
+
+								</select>
+							</div></td>
+						<td>编号</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input empNum">
+						</td>
+					</tr>
+					<tr>
+						<td>手机号码</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input iphone">
+						</td>
+						<td>邮箱</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input mail">
+						</td>
+						<td>年龄</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input age">
+						</td>
+					</tr>
+					<tr>
+						<td>学历</td>
+						<td><div class="layui-input-inline ">
+								<select name="quiz2"  id="education">
+									<option value=""></option>
+									<option value="0">专科</option>
+									<option value="1">本科</option>
+									<option value="2">硕士研究生</option>
+									<option value="3">博士研究生</option>
+									<option value="4">其他</option>
+								</select>
+							</div></td>
+							<td>专业</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input major">
+						</td>
+						<td>毕业院校</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input school">
+						</td>
+					</tr>
+					<tr>
+						<td>职位</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input position">
+						</td>
+						<td>现住地址</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input address">
+						</td>
+						<td>薪资</td>
+						<td><input type="text" name="title" required
+							lay-verify="required" autocomplete="off" class="layui-input salary">
+						</td>
+					</tr>
+					<tr><td colspan="6"> <button class="layui-btn layui-btn-normal updateEmp" lay-submit="" lay-filter="demo1">更改信息</button>
+						</td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

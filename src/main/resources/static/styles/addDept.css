@@ -1,0 +1,33 @@
+
+.body_layer{
+	position:absolute;
+	left:13%;
+	top:20%;
+	width:85%;
+	height:70%;
+}
+.form_content{
+	position:absolute;
+	left:5%;
+	width:90%;
+	height:100%;
+	
+}
+.remark{
+	color:#fff;
+}
+
+.layui-table{
+	
+	color:#000;
+}
+.layui-input{
+	color:#000;
+}
+.remark{
+	color:#000;
+}
+.layui-table tbody tr:hover {background-color: #95ddff}
+.layui-table td{
+	text-align:center;
+}

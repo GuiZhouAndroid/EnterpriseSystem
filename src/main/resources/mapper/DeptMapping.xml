@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  <mapper namespace="io.dtchain.dao.DeptDao">
+  <!-- 添加部门 -->
+  	<insert id="addDept" parameterType="io.dtchain.entity.DeptInfo">
+  		insert ignore into dept (id,deptName,remark,director,address,phone)
+  		 values
+  		 	(#{id},#{deptName},#{remark},#{director},#{address},#{phone})
+  	</insert>
+  	<!-- 删除部门 -->
+  	<delete id="delDept" parameterType="string">
+  		delete from dept where id=#{id}
+  	</delete>
+  	<!-- 查询部门 -->
+  	<select id="queryDept" resultType="io.dtchain.entity.DeptInfo">
+  		select id,deptName,remark,director,address,phone from dept  limit #{begin},10
+  	</select>
+  	<!-- 修改部门信息部门表 -->
+  	<update id="upDept" parameterType="io.dtchain.entity.DeptInfo">
+  		update  dept set deptName=#{deptName},remark=#{remark},director=#{director},address=#{address},phone=#{phone} where id=#{id} 
+  	</update>
+  	
+  	<select id="queryCount" resultType="int">
+  		select count(*) from dept
+  	</select>
+  	
+  	<select id="queryDeptInfo" resultType="io.dtchain.entity.DeptInfo">
+  		select id,deptName from dept
+  	</select>
+  	
+  	<select id="getDeptInfoById" resultType="io.dtchain.entity.DeptInfo">
+  		select deptName,remark,director,address,phone from dept where id=#{id}
+  	</select>
+  </mapper>

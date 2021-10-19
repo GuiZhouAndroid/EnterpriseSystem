@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  <mapper namespace="io.dtchain.dao.RecordDao">
+  		<!-- worktimetable -->
+  	<insert id="workTable" parameterType="java.util.List">
+  		insert ignore into workTimeTable (empName,dept,dates,workMorn,atNoon,workAfter,atNight)
+  				values
+  					<foreach collection="list" item="work" index="index" separator=",">
+  						(
+  							#{work.empName},
+  							#{work.dept},
+  							#{work.dates},
+  							#{work.workMorn},
+  							#{work.atNoon},
+  							#{work.workAfter},
+  							#{work.atNight}
+  						)
+  					</foreach>
+  	</insert>
+  	<delete id="emptyNull">
+  		delete from workTimeTable where workMorn="未打卡" and atNoon="未打卡" and atNight="未打卡" and workAfter="未打卡"
+  	</delete>
+  		<!-- 查询个人早退明细 -->
+  	<select id="queryDetailed" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.RecordTable">
+  		select empName,dept,dates,workMorn,atNoon,workAfter,atNight from Detailed where empName=#{empName} and dates between 
+  			#{start} and #{end} and dept=#{empDept} and (conbin LIKE '%l%' OR conbin LIKE '%e%')
+  				 order by dept,empName,dates
+  	</select>
+  	<!-- 查询部门员工的早退明细 -->
+  	<select id="queryDeptDetailed" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.RecordTable">
+  		select empName,dept,dates,workMorn,atNoon,workAfter,atNight from Detailed where dates between 
+  			#{start} and #{end} and dept=#{empDept} and (conbin LIKE '%l%' OR conbin LIKE '%e%')
+  					 order by dept,empName,dates
+  	</select>
+  	
+  	<!-- 迟到早退,加班记录 -->
+  	<insert id="detailed" parameterType="java.util.List">
+  		insert ignore into Detailed (empName,dept,dates,workMorn,atNoon,workAfter,atNight,conBin)
+  				values
+  					<foreach collection="list" item="work" index="index" separator=",">
+  						(
+  							#{work.empName},
+  							#{work.dept},
+  							#{work.dates},
+  							#{work.workMorn},
+  							#{work.atNoon},
+  							#{work.workAfter},
+  							#{work.atNight},
+  							#{work.conBin}
+  						)
+  					</foreach>
+  	</insert>
+  	<!-- 个人早退，迟到，加班信息 -->
+  	<select id="queryDetailedInfo" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.RecordTable">
+  		select dates,workMorn,atNoon,workAfter,atNight from Detailed where dates between 
+  			#{start} and #{end} and empName=#{empName}
+  				order by dept,empName,dates
+  	</select>
+  	
+  
+  	<!-- 部门总记录数 -->
+  	<select id="queryDeptCount" parameterType="io.dtchain.entity.QueryRecord" resultType="int">
+  		select count(*) from workTimeTable where dates between 
+  			#{start} and #{end} and dept=#{empDept} order by dept,empName,dates
+  	</select>
+  	
+  	<!-- 个人总记录数 -->
+  	<select id="queryCount" parameterType="io.dtchain.entity.QueryRecord" resultType="int">
+  		select count(*) from workTimeTable where dates between 
+  			#{start} and #{end} and dept=#{empDept} and empName=#{empName} order by dept,empName,dates
+  	</select>
+  	
+  	
+  	<!-- 查询个人分页记录数 -->
+  	<select id="queryOtherPage" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.RecordTable">
+  		select empName,dept,dates,workMorn,atNoon,workAfter,atNight from workTimeTable where dates between 
+  			#{start} and #{end} and dept=#{empDept} and empName=#{empName} 	
+  				order by dept,empName,dates limit #{page},10
+  	</select>
+  	
+  		<!-- 查询部门分页记录数 -->
+  	<select id="queryPage" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.RecordTable">
+  		select empName,dept,dates,workMorn,atNoon,workAfter,atNight from workTimeTable where dates between 
+  			#{start} and #{end} and dept=#{empDept}	
+  				order by dept,empName,dates limit #{page},10
+  	</select>
+  	
+  	<!-- 查询总的记录数用于下载 -->
+  	<select id="queryAllRecord" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.RecordTable">
+  		select empName,dept,dates,workMorn,atNoon,workAfter,atNight from workTimeTable where dates between 
+  			#{start} and #{end} and dept=#{empDept} order by dept,empName,dates
+  	</select>
+  	
+  	<!-- 查询个人记录数用于下载 -->
+  	<select id="queryRecord" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.RecordTable">
+  		select empName,dept,dates,workMorn,atNoon,workAfter,atNight from workTimeTable where dates between 
+  			#{start} and #{end} and dept=#{empDept} and empName=#{empName} order by dept,empName,dates
+  	</select>
+  	
+  </mapper>

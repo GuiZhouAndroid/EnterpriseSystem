@@ -1,0 +1,43 @@
+
+.body_layer{
+	position:absolute;
+	left:13%;
+	top:20%;
+	width:85%;
+	height:70%;
+}
+.form_content{
+	position:absolute;
+	left:5%;
+	width:90%;
+	height:100%;
+	color:#000;
+}
+.remark{
+	color:#000;
+}
+
+.layui-table{
+	color:#000;
+}
+.layui-input{
+	color:#000;
+}
+
+
+.sub_btn {
+	position:absolute;
+	height:100%;
+	top: 155%;
+	left:50%;
+}
+
+
+#uploadFile{
+	position:absolute;
+	top:40%;
+	left:20%;
+}
+.layui-inline .layui-upload-choose{
+	top:40%;
+}

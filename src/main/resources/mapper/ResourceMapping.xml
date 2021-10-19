@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="io.dtchain.dao.ResourceDao">
+	<!-- 加载用户资源 -->
+	<select id="loadUserResources" parameterType="Map"
+		resultType="io.dtchain.entity.Resource">
+		SELECT * FROM resource r LEFT JOIN user_resource ur
+		ON r.id=ur.resourceid
+		WHERE ur.userid=#{userid}
+	</select>
+	<!--  -->
+	<select id="queryAll" resultType="io.dtchain.entity.Resource">
+		select * from resource
+	</select>
+	<select id="queryId" resultType="int" parameterType="String">
+		select resourceId from user_resource WHERE userid=#{userId}
+	</select>
+	<select id="queryResourceName" resultType="string" parameterType="String">
+		SELECT resUrl FROM resource r LEFT JOIN user_resource ur
+		ON r.id=ur.resourceid
+		WHERE ur.userid=#{userid}
+	</select>
+</mapper>

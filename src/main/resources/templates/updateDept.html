@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport"
+	content="width = device-width, initial-scale = 1.0, user-scalable = 0" />
+<meta charset="UTF-8" />
+<title>修改部门信息</title>
+<link rel="stylesheet" href="layui/css/layui.css" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="styles/addDept.css">
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/updateDept.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<div class="body_layer">
+		<div class="layui-form form_content">
+
+			<table class="layui-table">
+				<tr>
+					<td style="width: 100px">部门名称</td>
+					<td><input type="text" name="title" required
+						lay-verify="required" autocomplete="off" class="layui-input deptName"></td>
+					<td style="width: 100px">部门主管</td>
+					<td><input type="text" name="title" required
+						lay-verify="required" autocomplete="off" class="layui-input director"></td>
+				</tr>
+				<tr>
+					<td style="width: 100px">部门地址</td>
+					<td><input type="text" name="title" required
+						lay-verify="required" autocomplete="off" class="layui-input address"></td>
+					<td style="width: 100px">部门电话</td>
+					<td><input type="text" name="title" required
+						lay-verify="required" autocomplete="off" class="layui-input phone"></td>
+				</tr>
+				<tr>
+					<td>部门备注</td>
+					<td colspan="3">
+						<div class="layui-form-item layui-form-text">
+							<div class="layui-input-block">
+								<textarea class="layui-textarea remark" lay-verify="required" required></textarea>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<button class="layui-btn layui-btn-normal" id="sub_btn" lay-submit="" lay-filter="demo1">立即提交</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>

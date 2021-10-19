@@ -1,0 +1,11 @@
+.content{
+	display: flex;
+
+	margin-left:240px;
+	margin-top:40px;
+	height:660px;
+	
+}
+.layui-table td{
+	text-align:center
+}

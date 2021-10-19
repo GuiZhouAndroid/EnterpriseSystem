@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0"/>
+<title>请假申请</title>
+
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="layui/css/layui.css" />
+<link rel="stylesheet" href="styles/approval.css" />
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/approval.js"></script>
+<script src="layui/layui.js"></script>
+
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+
+	<div class="form_body">
+		<!-- form -->
+		<div class="layui-form">
+
+			<div class="layui-form-item btn_bg">
+				<div class="layui-input-block">
+					<button class="layui-btn layui-btn-normal sub_btn" lay-submit=""
+						lay-filter="submit_btn">立即提交</button>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">请假类型</label>
+				<div class="layui-input-inline">
+					<select name="quiz1" lay-verify="required" id="leaveType">
+						<option value="">==请选择==</option>
+						<option value="事假">事假</option>
+						<option value="病假">病假</option>
+						<option value="婚假">婚假</option>
+						<option value="产假">产假</option>
+						<option value="陪产假">陪产假</option>
+						<option value="调休">调休</option>
+						<option value="其他">其他</option>
+					</select>
+				</div>
+			</div>
+			<hr class="bg1" />
+			<div class="startTime">
+				<div class="layui-inline">
+					<label class="layui-form-label">开始时间</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" id="start"
+							lay-verify="required" placeholder="yyyy-MM-dd HH:mm:ss" />
+					</div>
+				</div>
+			</div>
+			<hr class="bg2" />
+			<div class="endTime">
+				<div class="layui-inline">
+					<label class="layui-form-label">结束时间</label>
+					<div class="layui-input-inline">
+						<input type="text" class="layui-input" id="end"
+							lay-verify="required" placeholder="yyyy-MM-dd HH:mm:ss" />
+					</div>
+				</div>
+			</div>
+			<hr class="bg3" />
+			<div class="times">
+				<div class="layui-form-item">
+					<label class="layui-form-label">请假天数</label>
+					<div class="layui-input-inline">
+						<input type="text" name="username" lay-verify="required" id="leaveNum"
+							placeholder="请输入数字" autocomplete="off" class="layui-input" />
+					</div>
+				</div>
+			</div>
+			<hr class="bg4" />
+			<div class="leaveExcuse">
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">请假事由</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入内容" class="layui-textarea" id="leaveRegard" lay-verify="required"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="add">
+				 <label class="layui-form-label">审批人:</label>
+				<div class="layui-btn-group">
+					<button type="button" class="layui-btn layui-btn-sm" id="add">
+						<i class="layui-icon">&#xe654;</i>
+					</button>
+				</div>
+				<ul class="ulList">
+					
+				</ul>			
+			</div>
+		</div>
+	</div>
+	<!-- 背景模态化 -->
+	<div class="opacity_bg" style='display: none'></div>
+	<!-- 隐藏的添加审批人页面 -->
+	<div class="show" hidden="hidden">
+		<span id="leftTitle">审批人</span>
+		<button class="layui-btn layui-btn-danger close" id="btnClose">
+			<i class="layui-icon ">&#x1006;</i>
+		</button>
+		<div class="showBody">
+			<div class="tab">
+				<table class="layui-hide" id="tt" lay-filter="demo">
+					
+				</table>
+			</div>
+		</div>
+		<div class="layui-btn-group btnGroup">
+			<button class="layui-btn layui-btn-primary layui-btn-sm" data-type="getCheckData">确定</button>
+			<button class="layui-btn layui-btn-primary layui-btn-sm close" id="">取消</button>
+		</div>
+	</div>
+</body>
+</html>

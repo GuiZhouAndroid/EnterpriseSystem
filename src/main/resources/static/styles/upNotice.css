@@ -1,0 +1,40 @@
+.body_content{
+	position:absolute;
+	width:100%;
+	height:86%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	left:13%;
+}
+#span_title{
+	position:absolute;
+	left:35%;
+	color:#fff;
+}
+.notice_list{
+	position:absolute;
+	top:15%;
+	left:3%;
+	width:80%;
+}
+
+.layui-table td{
+	border-style:dashed;
+	border-left:0px;
+	border-right:0px;
+}
+.paging{
+	position:absolute;
+	top:90%;
+	left:45%;
+	width:80%;
+}
+a{
+	color:#ffffff;
+}
+.notice_list a:hover{
+	color:#ff8080;
+}
+.headStyle{
+	font-weight:bold;
+}

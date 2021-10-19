@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport"
+	content="width = device-width, initial-scale = 1.0, user-scalable = 0" />
+<meta charset="UTF-8" />
+<title>部门信息</title>
+<link rel="stylesheet" href="layui/css/layui.css" />
+<link rel="stylesheet" href="styles/dept.css" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/dept.js"></script>
+<script type="text/javascript" src="scripts/path.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<div class="body_layer">
+
+		<div class="tab_info">
+			<table class="layui-table" border="1" cellspacing="0" id="tab">
+				<tr>
+					<th style="width: 200px;"><b>序号</b></th>
+					<th style="width: 200px;"><b>部门名称</b></th>
+					<th style="width: 200px;"><b>部门主管</b></th>
+					<th style="width: 200px;"><b>部门地址</b></th>
+					<th style="width: 200px;"><b>部门电话</b></th>
+					<th style="width: 700px;"><b>备注内容</b></th>
+					<th style="width: 300px;" shiro:hasPermission="/deptauthority"><b>操作</b></th>
+					<!-- <th style="width: 200px;" shiro:hasPermission="/deptauthority"></th>
+					<th style="width: 200px;" shiro:hasPermission="/deptauthority"></th> -->
+				</tr>
+			</table>
+		</div>
+		<!-- <div class="query">
+			<button class="layui-btn layui-btn-primary" id="query">查询</button>
+		</div> -->
+		<!-- 隐藏修改信息框 -->
+		<div class="show layui-form" hidden="hidden">
+			<div class="layui-form-item deptN">
+				<label class="layui-form-label">部门名称</label>
+				<div class="layui-input-inline">
+					<input type="text" name="username" lay-verify="required"
+						placeholder="请输入" autocomplete="off" class="layui-input"
+						id="upDept" />
+				</div>
+				<br>
+				<br>
+				<br>
+				<br>
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">备注内容</label>
+					<div class="layui-input-block">
+						<textarea placeholder="请输入内容" class="layui-textarea remark"
+							lay-verify="required"></textarea>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="layui-btn layui-btn-normal" id="close">取消</button>
+			<button type="button" class="layui-btn layui-btn-normal" id="sureUP">确定</button>
+
+		</div>
+
+		<div class="pageing" id="demo1"></div>
+		<div class="showCount">
+			<span id="countRed"></span>
+		</div>
+	</div>
+	<div class="opacity_bg" style='display: none'></div>
+</body>
+</html>

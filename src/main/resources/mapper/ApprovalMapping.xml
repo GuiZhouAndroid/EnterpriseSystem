@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.dtchain.dao.ApprovalDao">
+	<insert id="leaveApplication" parameterType="io.dtchain.entity.LeaveTable">
+		insert into leaveTable (id,leaveType,startTime,endTime,leaveNum,createTime,leaveRegard,approver,approverStatue,applicant)
+			values
+				(#{id},#{leaveType},#{startTime},#{endTime},#{leaveNum},#{createTime},
+				#{leaveRegard},#{approver},#{approverStatue},#{applicant})
+	</insert>
+	<select id="queryCount" parameterType="map" resultType="int">
+		select count(*) from leaveTable where
+			<if test="applicant != 'admin'">
+				(approver=#{applicant}  or applicant=#{applicant}) and
+			</if>
+		  approverStatue=#{approverStatue}
+	</select>
+	
+	<select id="getPendingApproval" parameterType="map" resultType="io.dtchain.entity.LeaveTable">
+		select id,leaveType,startTime,endTime,leaveNum,leaveRegard,approverStatue,applicant,approver
+		 from leaveTable where 
+		 	<if test="applicant != 'admin'">
+		 		(approver=#{applicant}  or applicant=#{applicant}) and
+		 	</if>
+		  approverStatue=#{approverStatue} ORDER BY createTime DESC limit #{page},10 
+	</select>
+	
+	
+	<select id="queryApprovalCount" parameterType="string" resultType="int">
+		select count(*) from leaveTable where 
+			<if test="applicant != 'admin'">
+				(approver=#{applicant}  or applicant=#{applicant}) and
+			</if>
+		 approverStatue<![CDATA[!= ]]>2
+	</select>
+	
+	<select id="querySearchApprovalCount" parameterType="map" resultType="int">
+		select count(*) from leaveTable
+			<where>
+				<if test="app != 'admin'">
+				(approver=#{app}  or applicant=#{app}) and
+				</if>
+				<if test="applicant !=''">
+					applicant=#{applicant} and
+				</if>
+				<if test="createStartTime !=''">
+					createTime<![CDATA[>=]]> #{createStartTime} and 
+				</if>
+				<if test="createEndTime !=''">
+					createTime<![CDATA[<=]]> #{createEndTime}  and
+				</if>
+				<if test="approverStatue!=2">
+					  approverStatue=#{approverStatue}
+				</if>
+				<if test="approverStatue==2">
+					 approverStatue!=2
+				</if>
+			</where>
+		
+	</select>
+	
+	
+	<select id="getApproval" parameterType="map" resultType="io.dtchain.entity.LeaveTable">
+		select id,leaveType,startTime,endTime,leaveNum,leaveRegard,approverStatue,applicant
+		 from leaveTable where 
+		 	<if test="applicant != 'admin'">
+		 		(approver=#{applicant}  or applicant=#{applicant}) and
+		 	</if>
+		  approverStatue<![CDATA[!= ]]>2 ORDER BY createTime DESC limit #{page},10 
+	</select>
+	
+	<select id="getSearchApproval" parameterType="map" resultType="io.dtchain.entity.LeaveTable">
+		select id,leaveType,startTime,endTime,leaveNum,leaveRegard,approverStatue,applicant
+		 from leaveTable 
+		 	<where>
+		 		<if test="applicant != 'admin'">
+		 			(approver=#{applicant}  or applicant=#{applicant}) and
+		 		</if>
+		 		<if test="app !=''">
+		 			applicant=#{app} and
+		 		</if>
+		 		<if test="createStartTime !=''">
+					createTime<![CDATA[>=]]> #{createStartTime} and 
+				</if>
+				<if test="createEndTime !=''">
+					createTime<![CDATA[<=]]> #{createEndTime} and 
+				</if>
+				<if test="approverStatue!=2">
+					  approverStatue=#{approverStatue}
+				</if>
+				<if test="approverStatue==2">
+					 approverStatue!=2
+				</if>
+		 	</where>
+		 	 ORDER BY createTime DESC limit #{page},10 
+	</select>
+	
+	
+	
+	
+	
+	<update id="operation" parameterType="map">
+		update leaveTable set approverStatue=#{approverStatue} where id=#{id}
+	</update>
+	<delete id="delApproval" parameterType="string">
+			delete from leaveTable where id=#{id}
+	</delete>
+</mapper>

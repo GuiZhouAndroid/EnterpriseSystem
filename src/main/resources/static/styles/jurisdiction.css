@@ -1,0 +1,63 @@
+.jd_table {
+	position: absolute;
+	left: 15%;
+	top: 20%;
+}
+
+.pageId {
+	position: absolute;
+	left: 13%;
+	top: 8%;
+	width: 100%;
+	height: 45px;
+	background-color: #c0c0c0;
+}
+
+.get_jd {
+	position: absolute;
+	left: 2%;
+	top: 25%;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.list_emu {
+	position: absolute;
+	top: 14%;
+	left: 13%;
+	width: 100%;
+	height: 45px;
+}
+
+.search {
+	position: absolute;
+	top: 14%;
+	left: 50%;
+}
+
+.bg {
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	top: 77%;
+}
+
+th {
+	width: 100px;
+	height: 30px;
+	text-align: center;
+}
+
+
+
+.pageing {
+	position: absolute;
+	top: 88%;
+	left: 68%;
+}
+
+.showCount {
+	position: absolute;
+	top: 91%;
+	left: 14%;
+}

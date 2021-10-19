@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  <mapper namespace="io.dtchain.dao.AttendDao">
+  	<!-- 查询个人工时统计 -->
+  	<select id="searchProce" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.DataProceTable">
+  		select empName,dept,dates,days,hours,late,earlyRetr,overTime from dataProce_t where empName=#{empName} and dates between 
+  			#{start} and #{end} and dept=#{empDept} order by dates
+  	</select>
+  	<!-- 查询部门员工的工时统计 -->
+  	<select id="searchDeptProce" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.DataProceTable">
+  		select empName,dept,dates,days,hours,late,earlyRetr,overTime from dataProce_t where dates between 
+  			#{start} and #{end} and dept=#{empDept} order by empName,dates
+  	</select>
+  </mapper>

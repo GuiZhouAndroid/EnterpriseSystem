@@ -1,0 +1,99 @@
+.body_layer{
+	position:absolute;
+	left:12%;
+	top:10%;
+	width:87%;
+	height:auto;
+}
+.dateSelect{
+	position:absolute;
+	top:30%;
+	left:5%;
+	width:100%;
+	height:50px;
+	text-align:center;
+}
+#stime,#etime,#gtime{
+	border-left:0;
+	border-top:0;
+	border-right:0;
+	width:100px;
+	margin-right:10px;
+	margin-left:10px;
+	background-color:#fff;
+}
+.layui-table tbody tr:hover {background-color: #fff}
+.simg,.eimg,.cursor,.del,.add{
+	cursor:pointer;
+}
+.fontSize{
+	font-size:14px;
+	font-weight:bold;
+	color:#000000;
+	text-align:center;'
+}
+.backColor{
+	background-color:hsl(0, 0%, 95%);
+}
+#travel{
+	border-left:0;
+	border-top:0;
+	border-right:0;
+	margin-right:100px;
+	width:700px;
+}
+#cbzx{
+	border-left:0;
+	border-top:0;
+	border-right:0;
+	margin-right:50px;
+	width:250px;
+}
+.inputDate{
+	border-left:0;
+	border-top:0;
+	border-right:0;
+	width:100px;
+	background-color:#fff;
+}
+.selectList{
+	color:#3e9eff;
+	width:100px;
+	border: 1px solid #3e9eff;
+}
+.inputNum{
+	border-left:0;
+	border-top:0;
+	border-right:0;
+	width:80px;
+	background-color:#fff;
+}
+.del:hover{
+	background:url(../images/del_hover.png);
+}
+.add:hover{
+	background:url(../images/add_hover.png);
+}
+.addBack{
+	background-color:#c0c0c0;
+	text-align:center;
+}
+.center{
+	text-align:center;
+	color:hsl(209, 77%, 53%);
+}
+.mCS-3d-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar, .mCS-3d-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar, .mCS-3d-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar, .mCS-3d-dark.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar, .mCS-3d.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar, .mCS-3d.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar, .mCS-3d.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar, .mCS-3d.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
+	  background-color: #0F4165!important;
+      
+     
+}
+.mCS-3d-dark.mCSB_scrollTools .mCSB_draggerRail{
+	background:-ms-linear-gradient(to left,rgba(102,99,242,1),rgba(34,250,247,1));
+      background:-moz-linear-gradient(to left,rgba(102,99,242,1),rgba(34,250,247,1));
+      background:-webkit-linear-gradient(to left,rgba(102,99,242,1),rgba(34,250,247,1));
+      background:linear-gradient(to left,rgba(102,99,242,1),rgba(34,250,247,1));
+      
+}
+.lccl{
+	text-align:center;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.dtchain.dao.NoticeDao">
+	<insert id="saveNotice" parameterType="io.dtchain.entity.Notice">
+		insert into noticeContet (id,title,TIME,content)
+		values
+		(#{id},#{title},#{time},#{content})
+	</insert>
+	<select id="queryNoticeTitle"
+		resultType="io.dtchain.entity.Notice" parameterType="map">
+		SELECT title,id,time FROM noticeContet ORDER BY TIME DESC  limit #{page},10
+	</select>
+	<select id="queryNoticeContent" parameterType="string"
+		resultType="io.dtchain.entity.Notice">
+		select title,time,content from noticeContet where id=#{id}
+	</select>
+	<select id="queryNoticeCount" resultType="int">
+		select count(*) from noticeContet
+	</select>
+	<delete id="delNotice" parameterType="string">
+		delete from noticeContet where id=#{id}
+	</delete>
+	<update id="updataNotice" parameterType="io.dtchain.entity.Notice">
+		update noticeContet set title=#{title},content=#{content} where id=#{id}
+	</update>
+</mapper>

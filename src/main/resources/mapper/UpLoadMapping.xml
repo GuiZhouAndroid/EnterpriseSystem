@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+  <mapper namespace="io.dtchain.dao.UpLoadDao">
+  <!-- 原始数据批量插入数据到数据库 -->
+  	<insert id="insertAttendRecord" parameterType="java.util.List">
+  		insert ignore into attendRecord (userName,empNum,cardNum,dates,times,direction,sourceEvent) 
+  			values 
+  				<foreach collection="list" item="attend" index="index" separator=",">
+  					(
+  						#{attend.userName},
+  						#{attend.empNum},
+  						#{attend.cardNum},
+  						#{attend.dates},
+  						#{attend.times},
+  						#{attend.direction},
+  						#{attend.sourceEvent}
+  					)
+  				</foreach>
+  	</insert>
+  	<!-- 查询加班时间 用于处理加班时长-->
+  	<select id="queryOverTime" parameterType="map" resultType="io.dtchain.entity.AttendTable">
+  		select times from attendRecord where userName=#{userName} and 
+  			dates=#{dates} and direction=#{direction} and times>#{times} order by dates,times
+  	</select>
+  	
+  	<!-- 去除正常上班出去的时间 -->
+  	<select id="queryOutTime" parameterType="map" resultType="io.dtchain.entity.AttendTable">
+  		select times from attendRecord where userName=#{userName} and 
+  			dates=#{dates} and direction=#{direction} and times>"14:00:00" and times <![CDATA[ < ]]> #{times} order by dates,times
+  	</select>
+  	
+  	
+  	<!-- 查询部门双休信息 -->
+  	<select id="queryDeptWeekInfo" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.ResultProce">
+  	SELECT empName,dates,dept,hours,late,earlyRetr,overTime FROM 
+  	(SELECT  *,DAYOFWEEK(dates) wk FROM dataProce_t dp) d WHERE (wk=7 OR wk=1) AND dept=#{empDept} and dates between 
+  			#{start} and #{end} order by dept,empName,dates
+  	</select> 
+  	<!-- 查询个人双休信息 -->
+  	<select id="queryWeekInfo" parameterType="io.dtchain.entity.QueryRecord" resultType="io.dtchain.entity.ResultProce">
+  	SELECT empName,dates,dept,hours,late,earlyRetr,overTime FROM 
+  	(SELECT  *,DAYOFWEEK(dates) wk FROM dataProce_t dp) d WHERE (wk=7 OR wk=1) AND empname=#{empName} and dates between 
+  			#{start} and #{end} order by dept,empName,dates
+  	</select> 
+  </mapper>

@@ -1,0 +1,14 @@
+.content {
+	position: absolute;
+	top: 30%;
+	left: 40%;
+}
+
+.layui-upload-list {
+	width: 612px;
+	height: 125px;
+}
+#subBtn{
+	position: absolute;
+	top:100%;
+}

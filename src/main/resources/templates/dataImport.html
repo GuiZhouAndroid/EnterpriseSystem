@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0"/>
+<meta charset="UTF-8"/>
+<title>数据导入</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css"/>
+<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css"/>
+<link rel="stylesheet" href="layui/css/layui.css"/>
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="scripts/dataImport.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<style>
+.content {
+	position: absolute;
+	top: 20%;
+	left: 35%;
+}
+
+.date {
+	left: -13%;
+}
+
+.dates {
+	left: -5%;
+}
+.panel-htop{
+	position: absolute;
+	top:140%;
+left:23%;
+}
+.excel{
+	position: absolute;
+	top:100%;
+left:23%;
+	}
+</style>
+<body class="layui-layout-body">
+	<div class="com"></div>
+
+
+	 <form action="File/upload.io" method="post"
+		enctype="multipart/form-data" class="content"> 
+
+
+
+		<div class="layui-form">
+			<div class="layui-inline">
+				<label class="date layui-form-label">开始日期</label>
+				<div class="dates layui-input-inline">
+					<input type="text" name="dateS" id="date" lay-verify="date"
+						autocomplete="off" class="layui-input"/>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<label class="date layui-form-label">结束日期</label>
+				<div class="dates layui-input-inline">
+					<input type="text" name="dateE" id="date1" lay-verify="date"
+						autocomplete="off" class="layui-input"/>
+				</div>
+			</div>
+
+		</div>
+		<br>
+		<span class="excel">文件仅支持后缀为.xlsx或者.xltx</span>
+		<br>
+		<div class="easyui-panel" title="上传文件"
+			style="width: 400px; padding: 30px 100px 50px 70px">
+			<div style="margin-bottom: 20px">
+				<input class="easyui-filebox" name="file"
+					data-options="prompt:'选择文件...'" style="width: 100%"/>
+			</div>
+			<div>
+				<button type="submit" class="easyui-linkbutton" id="subBtn" style="width: 100%">上传</button>
+			</div>
+		</div>
+	 </form> 
+
+</body>
+</html>

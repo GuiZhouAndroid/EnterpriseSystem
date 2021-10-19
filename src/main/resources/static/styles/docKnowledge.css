@@ -1,0 +1,25 @@
+.docBody{
+	position:absolute;
+	width:68%;
+	height:85%;
+	top:9%;
+	left:20%;
+
+	overflow:auto;
+}
+.docBody::-webkit-scrollbar {
+        display: none;
+    }
+.docTitle{
+	text-align:center;
+	font-size:22px;
+}
+.docInfo{
+	text-align:center;
+}
+a:link,a:visited,a:active{
+	color:#8ec7ff;
+}
+a:hover{
+	color:#ff8a8a;
+}

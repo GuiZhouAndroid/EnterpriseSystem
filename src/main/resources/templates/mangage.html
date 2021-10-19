@@ -1,0 +1,92 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport"
+	content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>员工信息表</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css"
+	href="easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="easyui/demo/demo.css" />
+<link rel="stylesheet" href="styles/jquery.mCustomScrollbar.css" />
+<link rel="stylesheet" href="styles/jquery.mCustomScrollbar.min.css" />
+<link rel="stylesheet" href="layui/css/layui.css" />
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="scripts/mangage.js"></script>
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+<script src="scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="scripts/jquery.mCustomScrollbar.js"></script>
+<script src="layui/layui.js"></script>
+<script type="text/javascript" src="scripts/queryDeptInfo.js"></script>
+<link rel="stylesheet" href="styles/mangage.css" />
+</head>
+<body>
+
+	<div class="com"></div>
+	<div class="body_opcation">
+		<input class="easyui-searchbox"
+			data-options="prompt:'部门或员工',menu:'#mm',searcher:doSearch"
+			style="height: 30px; width: 300px" id="search"></input>
+		<div id="mm">
+			<div data-options="name:'部门',iconCls:'icon-ok'">搜索</div>
+		</div>
+		<button type="button" shiro:hasPermission="/empManageAuthority"
+			id="add" class="layui-btn layui-btn-normal">添加</button>
+		<button class="layui-btn layui-btn-sm resetBtn">
+			<i class="layui-icon">&#xe9aa;</i>
+		</button>
+	</div>
+	<div class="body_content">
+		<div class="body_cude">
+
+
+			<!-- 显示表格信息 -->
+			<div class="showTab">
+				<table class="layui-table table_info" border="1" cellspacing="0">
+					<tr>
+						<th>序号</th>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>部门</th>
+						<th>编号</th>
+						<th>手机号码</th>
+						<th>邮箱</th>
+						<th>民族</th>
+						<th>出生日期</th>
+						<th>婚姻状况</th>
+						<th>政治面貌</th>
+						<th>身份证号</th>
+						<th>年龄</th>
+						<th>学历</th>
+						<th>专业</th>
+						<th>毕业院校</th>
+						<th>职位</th>
+						<th>现住地址</th>
+						
+						<th shiro:hasPermission="/empManageAuthority">薪资</th>
+						<th shiro:hasPermission="/empManageAuthority">操作</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div id="page"></div>
+	<div class="showCount">
+		<span id="countRed"></span>
+	</div>
+	<!-- 背景模态化 -->
+	<div class="opacity_bg" style='display: none'></div>
+	<!-- 隐藏的确认删除框 -->
+	<div class="sure_del" hidden="hidden">
+		<span id="info_del">是否确认删除该信息?</span>
+		<button type="button"
+			class="layui-btn layui-btn-normal close del_close">取消</button>
+		<button type="button" class="layui-btn layui-btn-normal del_sure">确认</button>
+	</div>
+</body>
+</html>

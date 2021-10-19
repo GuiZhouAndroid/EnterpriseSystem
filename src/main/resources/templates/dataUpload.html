@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+<meta name="viewport"
+	content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0" />
+<meta charset="UTF-8" />
+<title>文件上传</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="layui/css/layui.css" />
+
+<link rel="stylesheet" href="styles/dataUpload.css" />
+<script src="scripts/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+<script src="scripts/dataUpload.js"></script>
+</head>
+<body class="layui-layout-body">
+	<div class="com"></div>
+	<div class="body_layer">
+		<form class="layui-form form_content">
+			<label class="layui-form-label">文档标题</label>
+			<div class="layui-input-inline">
+				<input type="text" name="deptName" lay-verify="required"
+					placeholder="请输入" autocomplete="off" class="layui-input docTitle" />
+			</div>
+			<br> <br>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label">备注内容</label>
+				<div class="layui-input-block">
+					<textarea placeholder="请输入内容" class="layui-textarea remark"
+						lay-verify="required"></textarea>
+				</div>
+			</div>
+				<button type="button" class="layui-btn" id="uploadFile">
+					<i class="layui-icon">&#xe681;</i>上传文件
+				</button>
+			<div class="layui-form-item subStyle">
+				<div class="layui-input-block">
+					<button type="button" class="layui-btn sub_btn" lay-submit="" lay-filter="demo1"
+						id="upload">立即提交</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
