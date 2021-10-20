@@ -103,7 +103,7 @@ public class RecordController {
     private String conBin;
 
     @ApiOperation(value = "员工打卡")
-    @PostMapping(value = "/addPunchInfo")
+    @RequestMapping(value = "/addPunchInfo")
     @ResponseBody
     public Result<RecordTable> addPunchInfo(@ApiParam(value = "名字", required = true) @RequestParam(value = "empName") String empName,
                                             @ApiParam(value = "打卡日期", required = true) @RequestParam(value = "dates") String dates,

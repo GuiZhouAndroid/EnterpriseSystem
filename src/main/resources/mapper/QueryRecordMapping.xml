@@ -100,6 +100,6 @@
   	</select>
 
 	<insert id="addPunchInfo" parameterType="io.dtchain.entity.RecordTable">
-		insert into detailed VALUES(#{work.empName},#{work.dept},#{work.dates},#{work.workMorn},#{work.atNoon},#{work.workAfter},#{work.atNight},#{work.conBin});
+		insert into detailed (empName,dept,dates,workMorn,atNoon,workAfter,atNight,conBin) VALUES(#{empName},#{dates},#{workMorn},#{atNoon},#{workAfter},#{atNight},#{dept},#{conBin});
 	</insert>
   </mapper>
