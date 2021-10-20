@@ -72,7 +72,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/webjars/**", "anon");
 		filterChainDefinitionMap.put("/createCommonQRCode", "anon");
 		filterChainDefinitionMap.put("/createLogoQRCode", "anon");
-		filterChainDefinitionMap.put("/record/addPunchInfo", "anon");
+		filterChainDefinitionMap.put("/work/**", "anon");
 
 		//静态资源以及登陆请求可以不验证身份访问
 		filterChainDefinitionMap.put("/mangage/login.io", "anon");

@@ -19,10 +19,5 @@ import javax.annotation.Resource;
 @Service("RecordService")
 public class RecordServiceImpl implements RecordService {
 
-    @Resource
-    RecordDao recordDao;
-    @Override
-    public Result<RecordTable> addPunchInfo(RecordTable recordTable) {
-        return recordDao.addPunchInfo(recordTable);
-    }
+
 }

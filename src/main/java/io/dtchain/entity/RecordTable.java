@@ -88,14 +88,4 @@ public class RecordTable implements Comparable<RecordTable> {
 	public RecordTable() {
 	}
 
-	public RecordTable(String empName, String dates, String workMorn, String atNoon, String workAfter, String atNight, String dept, String conBin) {
-		this.empName = empName;
-		this.dates = dates;
-		this.workMorn = workMorn;
-		this.atNoon = atNoon;
-		this.workAfter = workAfter;
-		this.atNight = atNight;
-		this.dept = dept;
-		this.conBin = conBin;
-	}
 }

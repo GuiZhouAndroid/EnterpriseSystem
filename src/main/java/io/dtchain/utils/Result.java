@@ -7,6 +7,24 @@ public class Result<T> implements Serializable {
 	private String msg;
 	private int count;
 	private T data;
+
+	public Result() {
+	}
+
+	public Result(int i, String msg, T data) {
+		this.state = i;
+		this.msg = msg;
+		this.data = data;
+	}
+
+
+	public Result<T> Result(int state, String msg, T data) {
+		this.state = state;
+		this.msg = msg;
+		this.data = data;
+		return this;
+	}
+
 	public int getCount() {
 		return count;
 	}
@@ -45,5 +63,4 @@ public class Result<T> implements Serializable {
 	public String toString() {
 		return "Result [state=" + state + ", msg=" + msg + ", data=" + data + "]";
 	}
-
 }

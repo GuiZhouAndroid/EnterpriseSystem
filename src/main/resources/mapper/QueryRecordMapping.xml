@@ -99,7 +99,4 @@
   			#{start} and #{end} and dept=#{empDept} and empName=#{empName} order by dept,empName,dates
   	</select>
 
-	<insert id="addPunchInfo" parameterType="io.dtchain.entity.RecordTable">
-		insert into detailed (empName,dept,dates,workMorn,atNoon,workAfter,atNight,conBin) VALUES(#{empName},#{dates},#{workMorn},#{atNoon},#{workAfter},#{atNight},#{dept},#{conBin});
-	</insert>
   </mapper>

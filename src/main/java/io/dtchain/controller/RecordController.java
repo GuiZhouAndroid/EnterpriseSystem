@@ -92,27 +92,4 @@ public class RecordController {
         ouputStream.flush();
         ouputStream.close();
     }
-
-    private String empName;
-    private String dates;
-    private String workMorn;
-    private String atNoon;
-    private String workAfter;
-    private String atNight;
-    private String dept;
-    private String conBin;
-
-    @ApiOperation(value = "员工打卡")
-    @RequestMapping(value = "/addPunchInfo")
-    @ResponseBody
-    public Result<RecordTable> addPunchInfo(@ApiParam(value = "名字", required = true) @RequestParam(value = "empName") String empName,
-                                            @ApiParam(value = "打卡日期", required = true) @RequestParam(value = "dates") String dates,
-                                            @ApiParam(value = "早上打卡", required = true) @RequestParam(value = "workMorn") String workMorn,
-                                            @ApiParam(value = "中午打卡", required = true) @RequestParam(value = "atNoon") String atNoon,
-                                            @ApiParam(value = "午休打卡", required = true) @RequestParam(value = "workAfter") String workAfter,
-                                            @ApiParam(value = "下班打卡", required = true) @RequestParam(value = "atNight") String atNight,
-                                            @ApiParam(value = "所属部门", required = true) @RequestParam(value = "dept") String dept,
-                                            @ApiParam(value = "conBin", required = true) @RequestParam(value = "conBin") String conBin) {
-        return recordService.addPunchInfo(new RecordTable(empName,dates,workMorn,atNoon,workAfter,atNight,dept,conBin));
-    }
 }
