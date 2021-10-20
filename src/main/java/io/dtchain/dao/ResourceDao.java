@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.dtchain.entity.Resource;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ResourceDao {
 	
 	/**

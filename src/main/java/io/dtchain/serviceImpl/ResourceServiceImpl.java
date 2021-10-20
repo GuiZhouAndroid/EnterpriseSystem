@@ -28,4 +28,5 @@ public class ResourceServiceImpl implements ResourceService {
 		return resourceDao.queryAll();
 	}
 
+
 }

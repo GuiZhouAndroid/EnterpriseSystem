@@ -62,16 +62,21 @@ public class ShiroConfig {
 
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
 		filterChainDefinitionMap.put("/logout", "logout");
-		
+
+
 		//swagger-ui可以匿名访问
 		filterChainDefinitionMap.put("/swagger-ui.html", "anon");
 		filterChainDefinitionMap.put("/v2/api-docs", "anon");
 		filterChainDefinitionMap.put("/swagger/**", "anon");
 		filterChainDefinitionMap.put("/swagger-resources/**", "anon");
 		filterChainDefinitionMap.put("/webjars/**", "anon");
-		
+		filterChainDefinitionMap.put("/createCommonQRCode", "anon");
+		filterChainDefinitionMap.put("/createLogoQRCode", "anon");
+		filterChainDefinitionMap.put("/addPunchInfo", "anon");
+
 		//静态资源以及登陆请求可以不验证身份访问
 		filterChainDefinitionMap.put("/mangage/login.io", "anon");
+
 		filterChainDefinitionMap.put("/easyui/**", "anon");
 		filterChainDefinitionMap.put("/images/**", "anon");
 		filterChainDefinitionMap.put("/layui/**", "anon");

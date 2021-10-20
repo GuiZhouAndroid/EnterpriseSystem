@@ -98,5 +98,8 @@
   		select empName,dept,dates,workMorn,atNoon,workAfter,atNight from workTimeTable where dates between 
   			#{start} and #{end} and dept=#{empDept} and empName=#{empName} order by dept,empName,dates
   	</select>
-  	
+
+	<insert id="addPunchInfo" parameterType="io.dtchain.entity.RecordTable">
+		insert into detailed VALUES(#{work.empName},#{work.dept},#{work.dates},#{work.workMorn},#{work.atNoon},#{work.workAfter},#{work.atNight},#{work.conBin});
+	</insert>
   </mapper>

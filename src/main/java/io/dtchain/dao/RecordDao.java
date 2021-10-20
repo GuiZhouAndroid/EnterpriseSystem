@@ -7,9 +7,16 @@ import io.dtchain.entity.OutTable;
 import io.dtchain.entity.QueryRecord;
 import io.dtchain.entity.RecordTable;
 import io.dtchain.utils.Result;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface RecordDao {
-	
+	/**
+	 * 增加打卡数据
+	 * @return
+	 */
+	public Result<RecordTable> addPunchInfo(RecordTable recordTable);
+
 	/**
 	 * 将上下班时间写入worktimetable
 	 * 

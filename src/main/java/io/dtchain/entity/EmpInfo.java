@@ -1,6 +1,8 @@
 package io.dtchain.entity;
 
-public class EmpInfo {
+import java.io.Serializable;
+
+public class EmpInfo implements Serializable {
 	private String empId;
 	private String empName;
 	private String empDept;
