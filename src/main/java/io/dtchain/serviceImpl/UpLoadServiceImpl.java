@@ -238,7 +238,7 @@ public class UpLoadServiceImpl implements UpLoadService {
 	}
 
 	/**
-	 * 通过进门打卡信息判断上班时间信息
+	 * 通过进门卡信息判断上班时间信息
 	 */
 	private List<EnterTable> workTime(List<AttendTable> enter) {
 		List<EnterTable> enterList = new ArrayList<EnterTable>();
