@@ -101,21 +101,24 @@ public class WorkTimeController {
                 }
                 //管理员设置的结束打卡时间
 //                Date endPlayDate = sdDate.parse(PlayNowDate);//格式化管理员设置的结束打卡日期
-                Date DateEndPlayTime = sdTime.parse(PlayNowTime);//格式化管理员设置的结束打卡时间
+//                Date DateEndPlayTime = sdTime.parse(PlayNowTime);//格式化管理员设置的结束打卡时间
                 //员工当前打卡时间
 //              Date userPlayDate = sdDate.parse(userPlayNowDate);//格式化用户当前打卡服务器日期
                 Date DateUserPlayNowTime = sdTime.parse(userPlayNowTime);//格式化用户当前打卡服务器时间
                 System.out.println("用户当前打卡时间==="+DateUserPlayNowTime);
-                //早上
+                /** 早上9点整开始打卡 */
                 String strMorning = "09:00:00";
                 Date dateMorning = sdTime.parse(strMorning);
-                System.out.println("格式化后的早上9点=="+dateMorning);
-                String strSetMorningTimer = "09:30:00";//定义打卡时间
-                Date dateSetMorningTimer = sdTime.parse(strSetMorningTimer);
-                //中午
+                //定义早上打卡期限时间--->期限时间为管理员设置时间
+                Date dateSetMorningTimer = sdTime.parse(PlayNowTime);
+                /** 中午12点整开始打卡 */
                 String strNoon = "12:00:00";
                 Date dateNoon = sdTime.parse(strNoon);
                 System.out.println("格式化后的中午12点=="+dateNoon);
+                //定义中午打卡时间期限--->期限时间为管理员设置时间
+                Date dateSetNoonTimer = sdTime.parse(PlayNowTime);
+                System.out.println("早上打卡时间期限==" + dateSetMorningTimer);
+
                 //下午
                 String strAfternoon = "10:00:00";
                 Date dateAfternoon = sdTime.parse(strAfternoon);
@@ -124,21 +127,32 @@ public class WorkTimeController {
                 Date dateNight = sdTime.parse(strNight);
                 String strPlayCardError = "未打卡";
                 String strPlayCardNotBegin = "————";//未开始
-                if (DateUserPlayNowTime.after(dateMorning) && DateUserPlayNowTime.before(dateSetMorningTimer)) {//早上打卡：员工打卡时在 09:00 - 09:30  之间打卡有效
+
+                /** 当天-->打卡有效期内可以多次打卡(解决不了)，超过打卡有效期,即使当天的某时间段未打卡--->那么当天当时间段，只能打卡一次，并插入未打开*/
+                //比较早上员工打卡时间---> 09:00:00 ———— 管理员时间
+                if (DateUserPlayNowTime.after(dateMorning) && DateUserPlayNowTime.before(dateSetMorningTimer)) {//早上打卡：员工打卡时在 08:00 - 管理员设置时间内  之间打卡有效
                     WorkTimeBean workTimeBean = new WorkTimeBean(empName,dept,userPlayNowDate,userPlayNowTime,strPlayCardNotBegin,strPlayCardNotBegin,strPlayCardNotBegin);
-                    int intState = workTimeService.addPunchInfo(workTimeBean);
-//                    return intState !=0 ? new Result(1,"09:30之前结束，本次成功打卡",workTimeBean):new Result(1,"打卡失败",workTimeBean);
-                    return new Result(0, "目前在09:30之前，本次成功打卡", "早3上：" +DateUserPlayNowTime.after(dateMorning)  + "，早上结束打卡时间：" +  DateUserPlayNowTime.before(dateSetMorningTimer));
+                    workTimeService.addPunchInfo(workTimeBean);
+                    return new Result(0, "本次成功打卡", "早上：" +DateUserPlayNowTime.after(dateMorning)  + "，早上结束打卡时间：" +  DateUserPlayNowTime.before(dateSetMorningTimer));
                 }else { //超过早上 09:30 未打卡
                     WorkTimeBean workTimeBean = new WorkTimeBean(empName,dept,userPlayNowDate,strPlayCardError,strPlayCardNotBegin,strPlayCardNotBegin,strPlayCardNotBegin);
-                    int intState = workTimeService.addPunchInfo(workTimeBean);
-                    return new Result(0, "目前在09:30之后，本次成功失败", "早3上：" +DateUserPlayNowTime.after(dateMorning)  + "，早上结束打卡时间：" +  DateUserPlayNowTime.before(dateSetMorningTimer));
+                    workTimeService.addPunchInfo(workTimeBean);
+                    return new Result(0, "本次打卡失败", "早上：" +DateUserPlayNowTime.after(dateMorning)  + "，早上结束打卡时间：" +  DateUserPlayNowTime.before(dateSetMorningTimer));
                 }
-//                if (!DateUserPlayNowTime.before(dateMorning) && !DateUserPlayNowTime.after(dateNoon)) {//员工打卡时间超过 9 - 12点
-//                    return new Result(0, "早上And中午", "早上：" + DateUserPlayNowTime.before(dateMorning) + "，中午：" + DateUserPlayNowTime.after(dateNoon));
+//
+//                //比较中午员工打卡时间---> 12:00:00 ———— 管理员时间
+//                if (DateUserPlayNowTime.after(dateNoon) && DateUserPlayNowTime.before(dateSetNoonTimer)) {//中午打卡：员工打卡时在 08:00 - 管理员设置时间内  之间打卡有效
+//                    WorkTimeBean workTimeBean = new WorkTimeBean(empName,dept,userPlayNowDate,userPlayNowTime,strPlayCardNotBegin,strPlayCardNotBegin,strPlayCardNotBegin);
+//                    workTimeService.addPunchInfo(workTimeBean);
+//                    return new Result(0, "本次成功打卡", "早上：" +DateUserPlayNowTime.after(dateMorning)  + "，早上结束打卡时间：" +  DateUserPlayNowTime.before(dateSetMorningTimer));
+//                }else { //超过早上 09:30 未打卡
+//                    WorkTimeBean workTimeBean = new WorkTimeBean(empName,dept,userPlayNowDate,strPlayCardError,strPlayCardNotBegin,strPlayCardNotBegin,strPlayCardNotBegin);
+//                    workTimeService.addPunchInfo(workTimeBean);
+//                    return new Result(0, "本次打卡失败", "早上：" +DateUserPlayNowTime.after(dateMorning)  + "，早上结束打卡时间：" +  DateUserPlayNowTime.before(dateSetMorningTimer));
 //                }
 
-                //比较打卡日期，超过日期就提示打卡已结束
+//
+
 
 //            if (userPlayDate.after(endPlayDate)){
 //                WorkTimeBean workTimeBean = new WorkTimeBean(empName,dept,userPlayDate,nowTime,nowTime,nowTime,nowTime);
