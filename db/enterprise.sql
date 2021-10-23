@@ -11,7 +11,7 @@
  Target Server Version : 80026
  File Encoding         : 65001
 
- Date: 22/10/2021 08:24:23
+ Date: 23/10/2021 23:03:27
 */
 
 SET NAMES utf8mb4;
@@ -6627,7 +6627,7 @@ CREATE TABLE `resource`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `resUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of resource
@@ -6668,7 +6668,7 @@ INSERT INTO `user_resource` VALUES ('admin', 6);
 -- ----------------------------
 DROP TABLE IF EXISTS `worktimetable`;
 CREATE TABLE `worktimetable`  (
-  `empName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `empName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `dept` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `dates` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `workMorn` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
@@ -6712,6 +6712,43 @@ INSERT INTO `worktimetable` VALUES ('陈杨', '人力资源部', '2019/01/04', '
 INSERT INTO `worktimetable` VALUES ('陈杨', '人力资源部', '2019/01/07', '09:32:38', '12:36:56', '13:56:24', '18:46:55');
 INSERT INTO `worktimetable` VALUES ('陈杨', '人力资源部', '2019/01/08', '09:22:30', '12:04:13', '12:34:06', '18:52:51');
 INSERT INTO `worktimetable` VALUES ('陈杨', '人力资源部', '2019/01/09', '09:16:00', '11:10:54', '未打卡', '未打卡');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '09:28:28', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '09:28:55', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '12:00:58', '————', '————');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '————', '————', '18:11:36');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '————', '————', '18:11:52');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '————', '————', '18:12:04');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '————', '————', '18:12:13');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '————', '————', '18:12:22');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '————', '未打卡', '————');
+INSERT INTO `worktimetable` VALUES ('admin', '代表处', '2021/10/23', '————', '未打卡', '————', '————');
+INSERT INTO `worktimetable` VALUES ('python', '代表处', '2021/10/23', '09:29:47', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('哇呀呀呀', '代表处', '2021/10/23', '————', '12:01:26', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '代表处', '2021/10/23', '————', '12:29:20', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '代表处', '2021/10/23', '————', '12:29:52', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '代表处', '2021/10/23', '————', '————', '————', '18:00:22');
+INSERT INTO `worktimetable` VALUES ('打卡', '代表处', '2021/10/23', '————', '未打卡', '————', '————');
+INSERT INTO `worktimetable` VALUES ('admin', '供应链管理部', '2021/10/23', '————', '————', '————', '18:11:46');
+INSERT INTO `worktimetable` VALUES ('admin', '供应链管理部', '2021/10/23', '————', '未打卡', '————', '————');
+INSERT INTO `worktimetable` VALUES ('python', '供应链管理部', '2021/10/23', '09:28:43', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('哈哈哈', '供应链管理部', '2021/10/23', '————', '————', '————', '18:29:42');
+INSERT INTO `worktimetable` VALUES ('哈哈哈', '供应链管理部', '2021/10/23', '————', '————', '————', '未打卡');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '09:29:33', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '09:29:59', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '12:28:32', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '12:29:02', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '12:29:39', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '12:29:47', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '————', '15:00:06', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '————', '15:00:24', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '————', '15:29:48', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '————', '————', '18:00:01');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '————', '————', '未打卡');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '————', '未打卡', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '————', '未打卡', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '供应链管理部', '2021/10/23', '未打卡', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('打卡', '后勤管理部', '2021/10/23', '09:29:52', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('admin', '市场部', '2021/10/23', '09:29:08', '————', '————', '————');
 INSERT INTO `worktimetable` VALUES ('刘恭胜', '技术研发部', '2018/11/30', '未打卡', '12:14:21', '12:53:22', '19:40:58');
 INSERT INTO `worktimetable` VALUES ('刘恭胜', '技术研发部', '2018/12/03', '09:33:19', '12:26:35', '13:02:14', '19:24:32');
 INSERT INTO `worktimetable` VALUES ('刘恭胜', '技术研发部', '2018/12/04', '09:43:23', '12:14:29', '12:51:02', '19:08:37');
@@ -6832,6 +6869,7 @@ INSERT INTO `worktimetable` VALUES ('吕冠森', '技术研发部', '2019/01/04'
 INSERT INTO `worktimetable` VALUES ('吕冠森', '技术研发部', '2019/01/07', '09:49:36', '12:01:35', '12:48:13', '19:16:55');
 INSERT INTO `worktimetable` VALUES ('吕冠森', '技术研发部', '2019/01/08', '09:46:44', '12:02:58', '12:28:38', '19:16:08');
 INSERT INTO `worktimetable` VALUES ('吕冠森', '技术研发部', '2019/01/09', '09:52:41', '未打卡', '未打卡', '未打卡');
+INSERT INTO `worktimetable` VALUES ('哇呀呀呀', '技术研发部', '2021/10/23', '————', '12:00:22', '————', '————');
 INSERT INTO `worktimetable` VALUES ('张松', '技术研发部', '2021/10/19', '', '', '', '08:48:58');
 INSERT INTO `worktimetable` VALUES ('张松', '技术研发部', '2021/10/19', '', '', '08:48:58', '');
 INSERT INTO `worktimetable` VALUES ('张松', '技术研发部', '2021/10/19', '', '08:48:58', '', '');
@@ -7509,6 +7547,8 @@ INSERT INTO `worktimetable` VALUES ('Java', '测试部', '2021/10/21', '——�
 INSERT INTO `worktimetable` VALUES ('Java', '测试部', '2021/10/21', '————', '————', '未打卡', '————');
 INSERT INTO `worktimetable` VALUES ('Java', '测试部', '2021/10/21', '————', '未打卡', '————', '————');
 INSERT INTO `worktimetable` VALUES ('Java', '测试部', '2021/10/21', '未打卡', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('Java', '测试部', '2021/10/22', '09:25:44', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('Java', '测试部', '2021/10/22', '09:26:22', '————', '————', '————');
 INSERT INTO `worktimetable` VALUES ('qwe', '测试部', '测试3部?', '测试部?', '测试部?', '测试部?', '测试部?');
 INSERT INTO `worktimetable` VALUES ('qwe', '测试部', '测试部?', '测试部?', '测试部?', '测试部?', '测试部?');
 INSERT INTO `worktimetable` VALUES ('你好', '测试部', '2021/10/20', '09:07:22', '09:07:22', '09:07:22', '09:07:22');
@@ -7667,6 +7707,13 @@ INSERT INTO `worktimetable` VALUES ('神州', '测试部', '2021/10/21', '12:04:
 INSERT INTO `worktimetable` VALUES ('神州', '测试部', '2021/10/21', '12:21:01', '————', '————', '————');
 INSERT INTO `worktimetable` VALUES ('神州', '测试部', '2021/10/21', '12:21:30', '————', '————', '————');
 INSERT INTO `worktimetable` VALUES ('神州', '测试部', '2021/10/21', '未打卡', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('自噶', '测试部', '2021/10/23', '09:05:19', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('自噶', '测试部', '2021/10/23', '09:11:24', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('自噶', '测试部', '2021/10/23', '09:26:03', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('自噶', '测试部', '2021/10/23', '09:26:13', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('自噶', '测试部', '2021/10/23', '————', '————', '15:06:56', '————');
+INSERT INTO `worktimetable` VALUES ('自噶', '测试部', '2021/10/23', '————', '未打卡', '————', '————');
+INSERT INTO `worktimetable` VALUES ('自噶', '测试部', '2021/10/23', '未打卡', '————', '————', '————');
 INSERT INTO `worktimetable` VALUES ('郑洁', '测试部', '2018/07/02', '09:53:58', '12:04:05', '13:34:56', '20:29:59');
 INSERT INTO `worktimetable` VALUES ('郑洁', '测试部', '2018/07/03', '09:54:18', '12:29:19', '13:48:27', '23:10:14');
 INSERT INTO `worktimetable` VALUES ('郑洁', '测试部', '2018/07/04', '10:06:28', '未打卡', '未打卡', '23:31:07');
@@ -7798,5 +7845,12 @@ INSERT INTO `worktimetable` VALUES ('郑洁', '测试部', '2019/01/04', '10:02:
 INSERT INTO `worktimetable` VALUES ('郑洁', '测试部', '2019/01/07', '10:12:43', '12:06:28', '12:46:51', '20:25:45');
 INSERT INTO `worktimetable` VALUES ('郑洁', '测试部', '2019/01/08', '10:05:47', '未打卡', '未打卡', '19:22:44');
 INSERT INTO `worktimetable` VALUES ('郑洁', '测试部', '2019/01/09', '10:08:00', '未打卡', '未打卡', '未打卡');
+INSERT INTO `worktimetable` VALUES ('叶静', '财务部', '2021/10/23', '09:22:13', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('叶静', '财务部', '2021/10/23', '09:29:59', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('叶静', '财务部', '2021/10/23', '————', '12:29:29', '————', '————');
+INSERT INTO `worktimetable` VALUES ('叶静', '财务部', '2021/10/23', '未打卡', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('admin', '销售部', '2021/10/23', '09:29:51', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('叶静', '销售部', '2021/10/23', '09:23:04', '————', '————', '————');
+INSERT INTO `worktimetable` VALUES ('叶静', '销售部', '2021/10/23', '————', '未打卡', '————', '————');
 
 SET FOREIGN_KEY_CHECKS = 1;
