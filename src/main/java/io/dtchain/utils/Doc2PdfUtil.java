@@ -1,8 +1,7 @@
 package io.dtchain.utils;
 import java.io.File;
-import java.io.IOException;
-import java.net.ConnectException;
 
+import java.net.ConnectException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +11,6 @@ import com.artofsolving.jodconverter.DocumentConverter;
 import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.converter.StreamOpenOfficeDocumentConverter;
-
-
 
 public class Doc2PdfUtil {
     private String OpenOfficeHost; //openOffice服务地址

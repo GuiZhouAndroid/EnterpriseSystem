@@ -1,11 +1,14 @@
 package io.dtchain.controller;
 
 import io.dtchain.entity.WorkTimeBean;
+import io.dtchain.redis.RedisUtils;
 import io.dtchain.service.WorkTimeService;
 import io.dtchain.utils.DateUtil;
 import io.dtchain.utils.Result;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * created by on 2021/10/20
@@ -27,12 +31,15 @@ import java.util.Date;
 @RestController
 @RequestMapping("/work/")
 public class WorkTimeController {
-
+    public static final Logger log = LoggerFactory.getLogger(WorkTimeController.class);
     @Autowired
     WorkTimeService workTimeService;
 
     @Autowired
     HttpServletRequest request; //通过注解获取一个request
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     @RequestMapping(value = "setPlayCardEndTime")
     public Result setPlayCardEndTime(HttpServletRequest request,
@@ -54,16 +61,38 @@ public class WorkTimeController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        //查询缓存中是否存在
+//        boolean hasKey = redisUtils.exists("SetEndDate");
+//        if (hasKey) {
+//            //获取缓存
+//            Object object = redisUtils.get("SetEndDate");
+//            log.info("从缓存获取的数据" + object);
+//        } else {
+//            从数据库中获取信息
+//            log.info("从数据库中获取数据");
+//            str = testService.test();
+//        }
+
+        // 一、redis缓存方式：管理设置的打卡日期时间相关信息存入服务器缓存中，提供给不同终端获取该日期时间数据
+        //数据插入缓存（set中的参数含义：key值，user对象，缓存存在时间10（long类型），时间单位）
+        redisUtils.set("MySetEndDate", strMySetEndDate, 10L, TimeUnit.MINUTES);//打卡结束时间--->日期格式 2021/10/21 09:10:00
+        log.info("从redis存储管理员设置的结束打卡日期+时间==" + strMySetEndDate);
+        redisUtils.set("PlayNowDate", endYear + "/" + endMonth + "/" + endDay, 10L, TimeUnit.MINUTES);//管理员自定义打卡结束日期 2021/11/21
+        log.info("从redis存储管理员设置的结束打卡日期==" + endYear + "/" + endMonth + "/" + endDay);
+        redisUtils.set("PlayNowTime", endHours + ":" + endMinute + ":" + endSecond, 10L, TimeUnit.MINUTES);//管理员自定义打卡结束时间 09:10:00
+        log.info("从redis存储管理员设置的结束打卡时间==" + endHours + ":" + endMinute + ":" + endSecond);
+
+        // 二、Session缓存方式
         //第一步：获取session
-        HttpSession session = request.getSession();
+        //HttpSession session = request.getSession();
         //第二步：将想要保存到数据存入session中
-        session.setAttribute("MySetEndDate", strMySetEndDate);//打卡结束时间--->日期格式 2021/10/21 09:10:00
-        session.setAttribute("PlayNowDate", endYear + "/" + endMonth + "/" + endDay);//管理员自定义打卡结束日期 2021/11/21
-        session.setAttribute("PlayNowTime", endHours + ":" + endMinute + ":" + endSecond);//管理员自定义打卡结束时间 09:10:00
-        System.out.println(strMySetEndDate);
-        System.out.println(endYear + "/" + endMonth + "/" + endDay);
-        System.out.println(endHours + ":" + endMinute + ":" + endSecond);
-        //这样就完成了用户名和密码保存到session的操作
+        //session.setAttribute("MySetEndDate", strMySetEndDate);
+        //session.setAttribute("PlayNowDate", endYear + "/" + endMonth + "/" + endDay);
+        //session.setAttribute("PlayNowTime", );
+        //System.out.println(strMySetEndDate);
+        //System.out.println(endYear + "/" + endMonth + "/" + endDay);
+        //System.out.println(endHours + ":" + endMinute + ":" + endSecond);
+
         return new Result(1, "设置结束打卡时间成功", strMySetEndDate);
     }
 
@@ -71,10 +100,42 @@ public class WorkTimeController {
     @RequestMapping(value = "addPunchInfo")
     public Result addPunchInfo(@ApiParam(value = "名字", required = true) @RequestParam(value = "empName") String empName,
                                @ApiParam(value = "所属部门", required = true) @RequestParam(value = "dept") String dept) {
-        /** 1.获取 Session 数据--->管理员设置的结束打卡日期信息*/
-        String MySetEndDate = (String) request.getSession().getAttribute("MySetEndDate");//获取Session保存的打卡结束日期+时间 2021/10/21 09:10:00
-        String PlayNowDate = (String) request.getSession().getAttribute("PlayNowDate");//获取Session保存的开始打卡日期 2021/11/21
-        String PlayNowTime = (String) request.getSession().getAttribute("PlayNowTime");//获取Session保存的开始打卡时间  09:10:00
+        /** 一、获取 Session 数据--->管理员设置的结束打卡日期信息，Session只能在同个客户端生效，不能实现不同终端共享管理员设置的结束打卡时间数据 */
+        //String MySetEndDate = (String) request.getSession().getAttribute("MySetEndDate");//获取Session保存的打卡结束日期+时间 2021/10/21 09:10:00
+        //String PlayNowDate = (String) request.getSession().getAttribute("PlayNowDate");//获取Session保存的结束打卡日期 2021/11/21
+        //String PlayNowTime = (String) request.getSession().getAttribute("PlayNowTime");//获取Session保存的结束打卡时间  09:10:00
+        /** 二、获取redis缓存，实现不同终端共享管理员设置的结束打卡时间数据--->满足要求 */
+        String MySetEndDate = null, PlayNowDate = null, PlayNowTime = null;
+        //查询缓存中是否存在
+        boolean hasKeyEndDate = redisUtils.exists("MySetEndDate");
+        boolean hasKeyNowDate = redisUtils.exists("PlayNowDate");
+        boolean hasKeyNowTime = redisUtils.exists("PlayNowTime");
+        if (hasKeyEndDate) {
+            //获取redis缓存中管理设置的结束打卡日期时间
+            Object object = redisUtils.get("MySetEndDate");
+            log.info("从redis缓存获取管理员设置的结束打卡日期+时间==" + object);
+            MySetEndDate = object.toString();
+        }else {
+            log.info("redis无缓存日期+时间==");
+        }
+        if (hasKeyNowDate){
+            //获取redis缓存中管理设置的结束打卡日期
+            Object object = redisUtils.get("PlayNowDate");
+            log.info("从redis缓存获取管理员设置的结束打卡日期==" + object);
+            PlayNowDate = object.toString();
+        } else {
+            log.info("redis无缓存日期==");
+        }
+        if (hasKeyNowTime){
+            //获取redis缓存中管理设置的结束打卡日期
+            Object object = redisUtils.get("PlayNowTime");
+            log.info("从redis缓存获取管理员设置的结束打卡时间==" + object);
+            PlayNowTime = object.toString();
+        }else {
+            log.info("redis无缓存时间==");
+        }
+
+
         if (MySetEndDate != null) {
             /** 2.日期格式转换 */
             SimpleDateFormat sdDateAndTime = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//用于字符串格式化为日期时间格式
@@ -147,39 +208,39 @@ public class WorkTimeController {
                 if ((DateUserPlayNowTime.after(dateMorning) && DateUserPlayNowTime.before(sdTime.parse("09:30:00"))) && (dateSetMorningTimer.after(DateUserPlayNowTime) && dateSetMorningTimer.before(dateNoon))) {// 09:00:00 < 员工打卡时间 < 09:30:00 , 员工打卡时间 < 管理员设置时间 < 12:00:00
                     WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, userPlayNowTime, strPlayCardNotBegin, strPlayCardNotBegin, strPlayCardNotBegin);
                     workTimeService.addPunchInfo(workTimeBean);
-                    return new Result(1, "本次成功打卡", "早上：" + DateUserPlayNowTime.after(dateMorning) + "，早上结束打卡时间：" + DateUserPlayNowTime.before(dateSetMorningTimer));
-                } else {//超过中午 09:00:00 未打卡
+                    return new Result(1, "早上成功打卡", "早上：" + DateUserPlayNowTime.after(dateMorning) + "，早上结束打卡时间：" + DateUserPlayNowTime.before(dateSetMorningTimer));
+                } else {//超过早上 09:30:00 未打卡
                     if ((DateUserPlayNowTime.after(dateMorning) && DateUserPlayNowTime.after(sdTime.parse("09:30:00"))) && (DateUserPlayNowTime.after(dateSetMorningTimer) && dateSetMorningTimer.before(dateNoon))) { // 09:00:00 < 员工打卡时间 > 09:30:00 , 员工打卡时间 > 管理员设置时间 < 12:00:00
                         WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, strPlayCardError, strPlayCardNotBegin, strPlayCardNotBegin, strPlayCardNotBegin);
                         workTimeService.addPunchInfo(workTimeBean);
-                        return new Result(0, "本次打卡失败", "早上：" + DateUserPlayNowTime.after(dateMorning) + "，早上结束打卡时间：" + DateUserPlayNowTime.before(dateSetMorningTimer));
+                        return new Result(0, "早上打卡失败", "早上：" + DateUserPlayNowTime.after(dateMorning) + "，早上结束打卡时间：" + DateUserPlayNowTime.before(dateSetMorningTimer));
                     }
                 }
                 //比较中午员工打卡时间---> 12:00:00
                 if ((DateUserPlayNowTime.after(dateNoon) && DateUserPlayNowTime.before(sdTime.parse("12:30:00"))) && (dateSetNoonTimer.after(DateUserPlayNowTime) && dateSetNoonTimer.before(dateAfternoon))) { // 12:00:00 < 员工打卡时间 < 12:30:00 , 员工打卡时间 < 管理员设置时间 < 15:00:00
                     WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, strPlayCardNotBegin, userPlayNowTime, strPlayCardNotBegin, strPlayCardNotBegin);
                     workTimeService.addPunchInfo(workTimeBean);
-                    return new Result(1, "本次成功打卡", "中午：" + DateUserPlayNowTime.after(dateNoon) + "，中午结束打卡时间：" + DateUserPlayNowTime.before(dateSetNoonTimer));
+                    return new Result(1, "中午成功打卡", "中午：" + DateUserPlayNowTime.after(dateNoon) + "，中午结束打卡时间：" + DateUserPlayNowTime.before(dateSetNoonTimer));
 
-                } else { //超过中午 12:00:00 未打卡
+                } else { //超过中午 12:30:00 未打卡
                     if ((DateUserPlayNowTime.after(dateNoon) && DateUserPlayNowTime.after(sdTime.parse("12:30:00"))) && (DateUserPlayNowTime.after(dateSetNoonTimer) && dateSetNoonTimer.before(dateAfternoon))) {  // 12:00:00 < 员工打卡时间 > 12:30:00 , 员工打卡时间 > 管理员设置时间 < 15:00:00
                         WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, strPlayCardNotBegin, strPlayCardError, strPlayCardNotBegin, strPlayCardNotBegin);
                         workTimeService.addPunchInfo(workTimeBean);
-                        return new Result(0, "本次打卡失败", "中午：" + DateUserPlayNowTime.after(dateNoon) + "，中午结束打卡时间：" + DateUserPlayNowTime.before(dateSetNoonTimer));
+                        return new Result(0, "中午打卡失败", "中午：" + DateUserPlayNowTime.after(dateNoon) + "，中午结束打卡时间：" + DateUserPlayNowTime.before(dateSetNoonTimer));
                     }
                 }
 
                 //比较下午员工打卡时间---> 15:00:00
-                if ((DateUserPlayNowTime.after(dateAfternoon) && DateUserPlayNowTime.before(sdTime.parse("15:30:00"))) && (dateSetAfternoonTimer.after(DateUserPlayNowTime) && dateSetAfternoonTimer.before(dateNight))) { // 15:00:00 < 员工打卡时间 < 15:30:00 , 员工打卡时间 < 管理员设置时间 < 18:00:00
+                if ((DateUserPlayNowTime.after(dateAfternoon) && DateUserPlayNowTime.before(sdTime.parse("15:30:00"))) && dateSetAfternoonTimer.after(DateUserPlayNowTime) ) { // 15:00:00 < 员工打卡时间 < 15:30:00 , 员工打卡时间 < 管理员设置时间 < 18:00:00
                     WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, strPlayCardNotBegin, strPlayCardNotBegin, userPlayNowTime, strPlayCardNotBegin);
                     workTimeService.addPunchInfo(workTimeBean);
-                    return new Result(1, "本次成功打卡", "下午：" + DateUserPlayNowTime.after(dateAfternoon) + "，下午结束打卡时间：" + DateUserPlayNowTime.before(dateSetAfternoonTimer));
+                    return new Result(1, "下午成功打卡", "下午：" + DateUserPlayNowTime.after(dateAfternoon) + "，下午结束打卡时间：" + DateUserPlayNowTime.before(dateSetAfternoonTimer));
 
-                } else { //超过下午 15:00:00 未打卡
+                } else { //超过下午 15:30:00 未打卡
                     if ((DateUserPlayNowTime.after(dateAfternoon) && DateUserPlayNowTime.after(sdTime.parse("15:30:00"))) && (DateUserPlayNowTime.after(dateSetAfternoonTimer) && dateSetAfternoonTimer.before(dateNight))) {  // 15:00:00 < 员工打卡时间 > 15:30:00 , 员工打卡时间 > 管理员设置时间 < 18:00:00
                         WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, strPlayCardNotBegin, strPlayCardNotBegin, strPlayCardError, strPlayCardNotBegin);
                         workTimeService.addPunchInfo(workTimeBean);
-                        return new Result(0, "本次打卡失败", "下午：" + DateUserPlayNowTime.after(dateAfternoon) + "，下午结束打卡时间：" + DateUserPlayNowTime.before(dateSetAfternoonTimer));
+                        return new Result(0, "下午打卡失败", "下午：" + DateUserPlayNowTime.after(dateAfternoon) + "，下午结束打卡时间：" + DateUserPlayNowTime.before(dateSetAfternoonTimer));
                     }
                 }
 
@@ -187,13 +248,13 @@ public class WorkTimeController {
                 if ((DateUserPlayNowTime.after(dateNight) && DateUserPlayNowTime.before(sdTime.parse("18:30:00"))) && (dateSetNightTimer.after(DateUserPlayNowTime) && dateSetNightTimer.before(sdTime.parse("19:00:00")))) { // 15:00:00 < 员工打卡时间 < 15:30:00 , 员工打卡时间 < 管理员设置时间 < 18:00:00
                     WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, strPlayCardNotBegin, strPlayCardNotBegin, strPlayCardNotBegin, userPlayNowTime);
                     workTimeService.addPunchInfo(workTimeBean);
-                    return new Result(1, "本次成功打卡", "晚上：" + DateUserPlayNowTime.after(dateNight) + "，晚上结束打卡时间：" + DateUserPlayNowTime.before(dateSetNightTimer));
+                    return new Result(1, "晚上成功打卡", "晚上：" + DateUserPlayNowTime.after(dateNight) + "，晚上结束打卡时间：" + DateUserPlayNowTime.before(dateSetNightTimer));
 
-                } else { //超过晚上 18:00:00 未打卡
+                } else { //超过晚上 18:30:00 未打卡
                     if ((DateUserPlayNowTime.after(dateNight) && DateUserPlayNowTime.after(sdTime.parse("18:30:00"))) && (DateUserPlayNowTime.after(dateSetNightTimer) && dateSetNightTimer.before(sdTime.parse("19:00:00")))) {  // 18:00:00 < 员工打卡时间 > 18:30:00 , 员工打卡时间 > 管理员设置时间 < 19:00:00
                         WorkTimeBean workTimeBean = new WorkTimeBean(empName, dept, userPlayNowDate, strPlayCardNotBegin, strPlayCardNotBegin, strPlayCardNotBegin, strPlayCardError);
                         workTimeService.addPunchInfo(workTimeBean);
-                        return new Result(0, "本次打卡失败", "晚上：" + DateUserPlayNowTime.after(dateNight) + "，晚上结束打卡时间：" + DateUserPlayNowTime.before(dateSetNightTimer));
+                        return new Result(0, "晚上打卡失败", "晚上：" + DateUserPlayNowTime.after(dateNight) + "，晚上结束打卡时间：" + DateUserPlayNowTime.before(dateSetNightTimer));
                     }
                 }
 
